@@ -21,9 +21,11 @@ class App {
     routes() {
         let router = express.Router();
         router.get('/sample', (req, res, next) => {
-            res.json({
+            res.json([{
                 message: 'Hello World!'
-            });
+            },{
+                message: 'How are you!'
+            }]);
         });
         this.express.use('/', router);
     }
