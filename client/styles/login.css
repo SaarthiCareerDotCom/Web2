@@ -4,6 +4,8 @@
   background: #fefefe;
   border-radius: 0;
   overflow: hidden;
+  margin-top: 2.5rem;
+  margin-bottom: 2.5rem;
 }
 
 .login-box .or {
@@ -42,7 +44,7 @@
 }
 
 .login-box-social-section {
-  background: url("https://images.pexels.com/photos/179124/pexels-photo-179124.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb");
+  background: url("http://images.all-free-download.com/images/graphiclarge/nostalgic_blue_background_06_hd_pictures_169782.jpg");
   background-size: cover;
   background-position: center;
 }
@@ -114,13 +116,18 @@
   padding: 0.85em 1em;
   -webkit-appearance: none;
   border: 1px solid transparent;
-  border-radius: 0;
+  border-radius: 10px;
   transition: background-color 0.25s ease-out, color 0.25s ease-out;
   font-size: 0.9rem;
   line-height: 1;
   text-align: center;
   cursor: pointer;
-  background-color: #3b5998;
+   /*background-color: #3b5998;*/
+   background-image: url( '../images/facebook.png' );
+   height:50px;
+   width:100px;
+   background-size: cover;
+   background-position: center;
   color: #fefefe;
   display: block;
   width: 100%;
@@ -147,13 +154,18 @@
   padding: 0.85em 1em;
   -webkit-appearance: none;
   border: 1px solid transparent;
-  border-radius: 0;
+  border-radius:10px;
   transition: background-color 0.25s ease-out, color 0.25s ease-out;
   font-size: 0.9rem;
   line-height: 1;
   text-align: center;
   cursor: pointer;
-  background-color: #55acee;
+  /*background-color: #55acee;*/
+  background-image: url( '../images/linkedin.png' );
+  height:50px;
+  width:100px;
+  background-size: cover;
+  background-position: center;
   color: #fefefe;
   display: block;
   width: 100%;
@@ -180,13 +192,18 @@
   padding: 0.85em 1em;
   -webkit-appearance: none;
   border: 1px solid transparent;
-  border-radius: 0;
+  border-radius: 10px;
   transition: background-color 0.25s ease-out, color 0.25s ease-out;
   font-size: 0.9rem;
   line-height: 1;
   text-align: center;
   cursor: pointer;
-  background-color: #dd4b39;
+  /*background-color: #dd4b39;*/
+  background-image: url( '../images/google.png' );
+  height:50px;
+  width:100px;
+  background-size: cover;
+  background-position: center;
   color: #fefefe;
   display: block;
   width: 100%;
