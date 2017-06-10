@@ -12,9 +12,10 @@
   "license": "ISC",
   "dependencies": {
     "@types/node": "^7.0.22",
+    "axios": "^0.9.1",
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
-    "axios": "^0.9.1",
+    "firebase": "^4.1.2",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
     "react-router": "^2.0.0"

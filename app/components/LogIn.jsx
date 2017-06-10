@@ -1,11 +1,13 @@
-var React= require('react');
-var LogInForm=require('LogInForm')
+var React = require('react');
+var RegistrationForm = require('RegistrationForm');
+//var LoginForm = require ('LoginForm');
 var LogIn = React.createClass({
   render:function()
   {
     return(
-      <LogInForm/>
+      <RegistrationForm/>
     );
   }
 });
+
 module.exports=LogIn;

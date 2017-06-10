@@ -51,9 +51,9 @@ var LogInForm = React.createClass({
                 <a className="login-box-social-button-google">Log in with Google+</a>
               </div>
             </div>
-          </div>
-        </form>
-      </div>
+            </div>
+          </form>
+        </div>
     );
   }
 });
