@@ -1,4 +1,6 @@
 .login-box {
+  margin-top: 2.5rem;
+  margin-bottom: 2.5rem;
   box-shadow: 0 2px 4px rgba(10, 10, 10, 0.4);
   background: #fefefe;
   border-radius: 0;
@@ -41,7 +43,7 @@
 }
 
 .login-box-social-section {
-  background: url("https://images.pexels.com/photos/179124/pexels-photo-179124.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb");
+  background: url("https://s-media-cache-ak0.pinimg.com/originals/1a/5d/8c/1a5d8c05200b6f1d9a56d8133b09923f.jpg");
   background-size: cover;
   background-position: center;
 }

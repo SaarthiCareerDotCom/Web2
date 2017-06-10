@@ -1,6 +1,6 @@
 import React from 'react';
 import firebase from '../configuration/firebase-config'
-
+var {Link} = require('react-router');
 var RegistrationForm = React.createClass({
 
   register: function (email, password) {
@@ -18,11 +18,13 @@ var RegistrationForm = React.createClass({
 
   onFormSubmit: function(e) {
     e.preventDefault();
-    var username=this.refs.username.value;
-    var email=this.refs.email.value;
-    var password=this.refs.password.value;
-    var repassword=this.refs.repassword.value;
-    console.log(username,email,password);
+    var username=this.refs.name.getValue();
+    var email=this.refs.email.getValue();
+    var password=this.refs.password.getValue();
+    var repassword=this.refs.password2.getValue();
+    console.log(username, email, password, repassword);
+//    console.log(username,email,password);
+console.log(username);
     this.register(email,password);
   },
 
@@ -46,7 +48,7 @@ var RegistrationForm = React.createClass({
   render: function () {
     return (
       <div className="login-box">
-        <form onSubmit={this.noFormSubmit}>
+        <form onSubmit={this.onFormSubmit} method ="post">
           <div className="row collapse expanded">
             <div className="small-12 large-6 column small-order-2 medium-order-1">
               <div className="login-box-form-section">
@@ -60,8 +62,9 @@ var RegistrationForm = React.createClass({
                 <Input ClassName="login-box-input" type="password" name="password2" placeholder="Retype password"
                   errorMessage="confirmed password doesnot match with password" validate={this.validateConfirmPassword} ref="password2" />
                 <Input ClassName="login-box-submit-button" type="submit" name="signup_submit" value="Sign me up" />
+  <div ClassName="login-box-title">Already Have an Account?<Link to={'/login'}>Login</Link></div>
               </div>
-            
+
             </div>
             <div className="small-12 medium-6 column small-order-1 medium-order-2 login-box-social-section">
               <div className="login-box-social-section-inner">
@@ -69,9 +72,11 @@ var RegistrationForm = React.createClass({
                   <button type="button" className="loginBtn loginBtn--facebook">Facebook  </button>
                   <br />
                     <br />
+                      <br />
                       <button type="button" className="loginBtn loginBtn--google">Google</button>
                         <br />
                           <br />
+                            <br />
                       <button type="button"  className="loginBtn loginBtn--linkdin">LinkedIn</button>
               </div>
             </div>

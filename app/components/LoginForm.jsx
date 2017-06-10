@@ -1,13 +1,9 @@
 var React = require('react');
-
+var {Link} = require('react-router');
 var LogInForm = React.createClass({
 
   onFormSubmit: function () {
 
-  },
-
-  validateUserName: function (value) {
-    return value != "";
   },
 
   validateEmail: function (value) {
@@ -18,11 +14,6 @@ var LogInForm = React.createClass({
   validatePassword: function (value) {
     return value.length >= 6;
   },
-
-  validateConfirmPassword: function (value) {
-    return this.refs.password.getValue() === value;
-  },
-
   render: function () {
     return (
       <div className="login-box">
@@ -30,28 +21,32 @@ var LogInForm = React.createClass({
           <div className="row collapse expanded">
             <div className="small-12 large-6 column small-order-2 medium-order-1">
               <div className="login-box-form-section">
-                <h1 className="login-box-title">Sign up</h1>
-                <Input ClassName="login-box-input" type="text" name="username" placeholder="Username"
-                  errorMessage="Name field cannot be empty" validate={this.validateUserName} ref="name" />
+                <h1 className="login-box-title">LogIn</h1>
                 <Input ClassName="login-box-input" type="email" name="email" placeholder="E-mail"
                   errorMessage="Email format is incorrect" validate={this.validateEmail} ref="email" />
                 <Input ClassName="login-box-input" type="password" name="password" placeholder="Password"
                   errorMessage="Password should have minimum 6 characters" validate={this.validatePassword} ref="password" />
-                <Input ClassName="login-box-input" type="password" name="password2" placeholder="Retype password"
-                  errorMessage="confirmed password doesnot match with password" validate={this.validateConfirmPassword} ref="password2" />
-                <Input ClassName="login-box-submit-button" type="submit" name="signup_submit" value="Sign me up" />
+                <Input ClassName="login-box-submit-button" type="submit" name="Login_Submit" value="LogIn" />
+                  <div ClassName="login-box-title">Don't have an account?<Link to={'/registration_form'}>Create One</Link></div>
               </div>
-              <div className="or">OR</div>
+
+
             </div>
             <div className="small-12 medium-6 column small-order-1 medium-order-2 login-box-social-section">
               <div className="login-box-social-section-inner">
-                <span className="login-box-social-headline">Sign in with<br />your social network</span>
+                <span className="login-box-social-headline">Log in with<br />your social network</span>
                   <button type="button" className="loginBtn loginBtn--facebook">Facebook  </button>
+                  <br />
+                  <br />
                       <button type="button" className="loginBtn loginBtn--google">Google</button>
+                        <br />
+                        <br />
                       <button type="button"  className="loginBtn loginBtn--linkdin">LinkedIn</button>
               </div>
             </div>
+
             </div>
+
           </form>
         </div>
     );
