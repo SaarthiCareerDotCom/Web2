@@ -61,14 +61,18 @@ var RegistrationForm = React.createClass({
                   errorMessage="confirmed password doesnot match with password" validate={this.validateConfirmPassword} ref="password2" />
                 <Input ClassName="login-box-submit-button" type="submit" name="signup_submit" value="Sign me up" />
               </div>
-              <div className="or">OR</div>
+            
             </div>
             <div className="small-12 medium-6 column small-order-1 medium-order-2 login-box-social-section">
               <div className="login-box-social-section-inner">
                 <span className="login-box-social-headline">Sign in with<br />your social network</span>
-                <a className="login-box-social-button-facebook">Log in with facebook</a>
-                <a className="login-box-social-button-twitter">Log in with Twitter</a>
-                <a className="login-box-social-button-google">Log in with Google+</a>
+                  <button type="button" className="loginBtn loginBtn--facebook">Facebook  </button>
+                  <br />
+                    <br />
+                      <button type="button" className="loginBtn loginBtn--google">Google</button>
+                        <br />
+                          <br />
+                      <button type="button"  className="loginBtn loginBtn--linkdin">LinkedIn</button>
               </div>
             </div>
             </div>
