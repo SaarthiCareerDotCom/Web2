@@ -4,7 +4,7 @@
   "description": "Website for saarthi",
   "main": "server/server-app.js",
   "scripts": {
-    "build": "npm run gulp",
+    "build": "webpack -w",
     "start": "nodemon server-app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -13,16 +13,19 @@
   "dependencies": {
     "@types/node": "^7.0.22",
     "angular": "^1.6.4",
-    "body-parser": "^1.17.2",
-    "express": "^4.15.3",
     "axios": "^0.9.1",
+    "body-parser": "^1.17.2",
+    "cookie-parser": "~1.4.3",
+    "express": "^4.15.3",
+    "express-session": "^1.15.3",
+    "firebase": "^4.1.2",
+    "morgan": "~1.8.1",
+    "nodemon": "^1.11.0",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
     "react-router": "^2.0.0",
-    "morgan": "~1.8.1",
     "request": "^2.81.0",
-    "serve-favicon": "~2.4.2",
-    "cookie-parser": "~1.4.3"
+    "serve-favicon": "~2.4.2"
   },
   "devDependencies": {
     "@types/body-parser": "^1.16.3",

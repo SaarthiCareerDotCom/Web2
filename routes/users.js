@@ -1,12 +1,11 @@
-// var express = require('express');
-// var router = express.Router();
-//
-// /* GET users listing. */
-// router.get('/', function(req, res, next) {
-//   res.send('respond with a resource');
-// });
-var User = function(name,email){
-  this.name = name;
-  this.email = email;
-};
-module.exports = User;
+var express = require('express');
+var router = express.Router();
+
+var register_A_user = require('./register');
+/* GET users listing. */
+router.post('/register', function(req, res, next) {
+  register_A_user(req.body);
+  res.send(req.body);
+});
+
+module.exports = router;
