@@ -18,7 +18,6 @@ var customReqBody = {
   'allow_repeated_payments' : false,
   'redirect_url' : 'https://www.google.com'
   // 'expires_at' : ''
-
 };
 
 module.exports =  function(req,res){
