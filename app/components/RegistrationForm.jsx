@@ -3,29 +3,52 @@ import firebase from '../configuration/firebase-config'
 var {Link} = require('react-router');
 var RegistrationForm = React.createClass({
 
-  register: function (email, password) {
-      firebase.auth().createUserWithEmailAndPassword(email, password).catch((error) => {
+  register: function (aUser) {
+      firebase.auth().createUserWithEmailAndPassword(aUser.email, aUser.password)
+      .then(function(firebaseUser){
+        var uid = firebaseUser.uid;
+        console.log(uid);
+        firebase.database().ref('saarthi').child('users').child(uid.toString()).set(aUser);
+
+
+      });
+      /*.catch((error) => {
         var errorCode = error.code;
         var errorMessage = error.message;
+        if(error == NULL){
+          console.log("user created");
+        }
         if (errorCode == 'auth/weak-password') {
           console.log(errorMessage);
         } else {
           console.log(errorMessage);
         }
         console.log(error);
-      });
+      });*/
+
+    /*  var user = firebase.auth().currentUser;
+      var uid;
+
+      uid = user.uid;
+      console.log(uid);*/
     },
 
   onFormSubmit: function(e) {
     e.preventDefault();
-    var username=this.refs.name.getValue();
-    var email=this.refs.email.getValue();
-    var password=this.refs.password.getValue();
-    var repassword=this.refs.password2.getValue();
-    console.log(username, email, password, repassword);
+  //  var name,email,password,password2;
+    var aUser = {
+     'name' : this.refs.name.getValue(),
+     'email' : this.refs.email.getValue(),
+     'password' : this.refs.password.getValue(),
+     'repassword' : this.refs.password2.getValue()
+
+  };
+  //  console.log(username, email, password, repassword);
 //    console.log(username,email,password);
-console.log(username);
-    this.register(email,password);
+//console.log(username);
+    this.register(aUser);
+
+
   },
 
   validateUserName: function (value) {
@@ -53,7 +76,7 @@ console.log(username);
             <div className="small-12 large-6 column small-order-2 medium-order-1">
               <div className="login-box-form-section">
                 <h1 className="login-box-title">Sign up</h1>
-                <Input ClassName="login-box-input" type="text" name="username" placeholder="Username"
+                <Input ClassName="login-box-input" type="text" name="username" placeholder="Name"
                   errorMessage="Name field cannot be empty" validate={this.validateUserName} ref="name" />
                 <Input ClassName="login-box-input" type="email" name="email" placeholder="E-mail"
                   errorMessage="Email format is incorrect" validate={this.validateEmail} ref="email" />
