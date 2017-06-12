@@ -1,17 +1,44 @@
 import React from 'react';
+
 import firebase from '../configuration/firebase-config'
 var {Link} = require('react-router');
+var LoggedIn =require('LoggedIn');
 var RegistrationForm = React.createClass({
-
+  getInitialState: function() {
+		return {
+			step: 1
+		}
+	},
   register: function (aUser) {
       firebase.auth().createUserWithEmailAndPassword(aUser.email, aUser.password)
       .then(function(firebaseUser){
         var uid = firebaseUser.uid;
         console.log(uid);
-        firebase.database().ref('saarthi').child('users').child(uid.toString()).set(aUser);
+      //  firebase.database().ref('saarthi').child('users').child(uid.toString()).set(aUser);
+
+        fetch('http://localhost:3000/users/register', {
+  method: 'POST',
+  headers: {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    name: aUser.name,
+    email: aUser.email,
+    id:uid
+  })
+})
+.then(function(res){
+  //return res.json();
+    console.log('okay');
+  }).catch(function(err){
+    console.log(err);
+  })
 
 
       });
+
+
       /*.catch((error) => {
         var errorCode = error.code;
         var errorMessage = error.message;
@@ -33,6 +60,8 @@ var RegistrationForm = React.createClass({
       console.log(uid);*/
     },
 
+
+
   onFormSubmit: function(e) {
     e.preventDefault();
   //  var name,email,password,password2;
@@ -47,8 +76,7 @@ var RegistrationForm = React.createClass({
 //    console.log(username,email,password);
 //console.log(username);
     this.register(aUser);
-
-
+     this.nextStep();
   },
 
   validateUserName: function (value) {
@@ -69,6 +97,8 @@ var RegistrationForm = React.createClass({
   },
 
   render: function () {
+    switch(this.state.step){
+      case 1:
     return (
       <div className="login-box">
         <form onSubmit={this.onFormSubmit} method ="post">
@@ -107,9 +137,18 @@ var RegistrationForm = React.createClass({
           </form>
         </div>
     );
-  }
-});
 
+case 2:
+return <LoggedIn />;
+}
+},
+  nextStep: function() {
+     this.setState({
+    step : this.state.step + 1
+  })
+},
+
+});
 var Input = React.createClass({
   getDefaultProps: function () {
     return {
@@ -162,3 +201,4 @@ var Input = React.createClass({
   }
 });
 module.exports = RegistrationForm;
+//export default withRouter('RegistrationForm');
