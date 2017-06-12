@@ -2,7 +2,8 @@ import React from 'react';
 
 import firebase from '../configuration/firebase-config'
 var {Link} = require('react-router');
-var LoggedIn =require('LoggedIn');
+
+var Main = require('Main');
 var RegistrationForm = React.createClass({
   getInitialState: function() {
 		return {
@@ -139,7 +140,7 @@ var RegistrationForm = React.createClass({
     );
 
 case 2:
-return <LoggedIn />;
+return <Main />;
 }
 },
   nextStep: function() {
