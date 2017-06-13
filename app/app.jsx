@@ -2,6 +2,7 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var {Route, Router, IndexRoute, hashHistory} = require('react-router');
 var Main = require('Main');
+
 import ForgotPassword from './components/ForgotPassword.jsx';
 import LoginForm from 'LoginForm';
 import RegistrationForm from 'RegistrationForm';

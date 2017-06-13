@@ -2,11 +2,69 @@ import React from 'react';
 import firebase from '../configuration/firebase-config';
 import Input from './common/InputField';
 import { Link } from 'react-router';
+
+var googleProvider = new firebase.auth.GoogleAuthProvider();
+var facebookProvider = new firebase.auth.FacebookAuthProvider();
+
 var RegistrationForm = React.createClass({
-  register: function (email, password) {
-    firebase.auth().createUserWithEmailAndPassword(email, password).catch((error) => {
-      var errorMessage = error.message;
+
+  getInitialState: function () {
+    return {
+      signupError: "",
+      verifyEmailMessage: ""
+    };
+  },
+  setInitialState: function () {
+    this.setState({
+      signupError: "",
+      verifyEmailMessage: ""
     });
+  },
+
+  registerViaEmail: function (email, password) {
+    var _this = this;
+    firebase.auth().createUserWithEmailAndPassword(email, password).then(function (firebaseUser) {
+      var uid = firebaseUser.uid;
+      var emailVerified = firebaseUser.emailVerified;
+      var email = firebaseUser.email;
+
+      console.log(email, uid, emailVerified);
+      firebaseUser.sendEmailVerification().then(() => {
+        _this.setState({
+          verifyEmailMessage: "Signup Successful: verification email is sent to your email address, please verify the same"
+        });
+      });
+    }).catch((error) => {
+      this.setState({
+        signupError: error.message
+      });
+    });
+  },
+
+  signupViaSocialMedia: function (Provider) {
+    firebase.auth().signInWithPopup(Provider).then(function (result) {
+      var token = result.credential.accessToken;
+      var user = result.user;
+      console.log(user);
+    }).catch(function (error) {
+      this.setState({
+        signupError: error.message
+      })
+    });
+  },
+
+  //Google
+  googleSignIn: function () {
+    this.signupViaSocialMedia(googleProvider);
+  },
+
+  //Facebook
+  facebookSignIn: function () {
+    this.signupViaSocialMedia(facebookProvider);
+  },
+
+  //LinkedIn
+  linkedIn: function () {
   },
 
   onFormSubmit: function (e) {
@@ -15,7 +73,9 @@ var RegistrationForm = React.createClass({
     var email = this.refs.email.getValue();
     var password = this.refs.password.getValue();
     var repassword = this.refs.password2.getValue();
-    this.register(email, password);
+
+    this.setInitialState();
+    this.registerViaEmail(email, password);
   },
 
   validateUserName: function (value) {
@@ -32,7 +92,7 @@ var RegistrationForm = React.createClass({
   },
 
   validateConfirmPassword: function (value) {
-    return this.refs.password.getValue() === value;
+    return this.refs.password.getValue() === value && value.length >= 6;
   },
 
   render: function () {
@@ -52,17 +112,19 @@ var RegistrationForm = React.createClass({
                 <Input className="login-box-input" type="password" name="password2" placeholder="Retype password"
                   errorMessage="confirmed password doesnot match with password" validate={this.validateConfirmPassword} ref="password2" />
                 <input className="login-box-submit-button" type="button" onClick={this.onFormSubmit} value="Sign me up" />
+                {this.state.signupError && <p>{this.state.signupError}</p>}
+                {this.state.verifyEmailMessage && <p>{this.state.verifyEmailMessage}</p>}
                 <div>Already Have an account?<Link to={'/login'}>LogIn</Link></div>
               </div>
             </div>
             <div className="small-12 large-6 column small-order-2 medium-order-1 login-box-social-section">
               <div className="login-box-social-section-inner">
                 <span className="login-box-social-headline">Sign in with<br />your social network</span>
-                <button type="button" className="loginBtn loginBtn--facebook">Facebook  </button>
+                <button className="loginBtn loginBtn--facebook" onClick={this.facebookSignIn}>Facebook</button>
                 <br />
-                <button type="button" className="loginBtn loginBtn--google">Google</button>
+                <button className="loginBtn loginBtn--google" onClick={this.googleSignIn}>Google</button>
                 <br />
-                <button type="button" className="loginBtn loginBtn--linkdin">LinkedIn</button>
+                <button className="loginBtn loginBtn--linkdin" onClick={this.linkedInSignIn}>LinkedIn</button>
               </div>
             </div>
           </div>
