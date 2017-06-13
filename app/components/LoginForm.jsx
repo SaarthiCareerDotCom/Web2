@@ -1,10 +1,61 @@
 var React = require('react');
 var {Link} = require('react-router');
+import firebase from '../configuration/firebase-config'
+  var LoggedIn = require('LoggedIn');
 var LogInForm = React.createClass({
 
-  onFormSubmit: function () {
+
+getInitialState: function() {
+  return {
+    step: 1
+  }
+},
+nextStep: function() {
+   this.setState({
+  step : this.state.step + 1
+})
+},
+
+  onFormSubmit: function(e) {
+    e.preventDefault();
+  //  var name,email,password,password2;
+    var aUser = {
+
+     'email' : this.refs.email.getValue(),
+     'password' : this.refs.password.getValue(),
+    };
+
+    this.login_user(aUser);
+    this.nextStep();
+
 
   },
+
+
+  login_user:function(aUser){
+  firebase.auth().signInWithEmailAndPassword(aUser.email, aUser.password).catch(function(error) {
+
+  var errorCode = error.code;
+  var errorMessage = error.message;
+  if (errorCode === 'auth/wrong-password') {
+     alert('Wrong password.');
+   } else {
+     alert(errorMessage);
+   }
+
+
+
+})
+.then(function(firebaseUser){
+  console.log(firebase.auth().currentUser.uid);
+  //var uid =firebase.auth().currentUser.uid;
+  if(error == NULL){
+
+  }
+});
+
+
+},
 
   validateEmail: function (value) {
     var emailExpression = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -15,9 +66,11 @@ var LogInForm = React.createClass({
     return value.length >= 6;
   },
   render: function () {
+    switch(this.state.step){
+      case 1:
     return (
       <div className="login-box">
-        <form onSubmit={this.noFormSubmit}>
+        <form onSubmit={this.onFormSubmit} method= "post">
           <div className="row collapse expanded">
             <div className="small-12 large-6 column small-order-2 medium-order-1">
               <div className="login-box-form-section">
@@ -50,7 +103,9 @@ var LogInForm = React.createClass({
           </form>
         </div>
     );
+    case 2: return <LoggedIn /> ;
   }
+}
 });
 
 var Input = React.createClass({

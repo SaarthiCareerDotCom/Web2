@@ -12,10 +12,12 @@ $(document).foundation();
 ReactDOM.render(
   <Router history={hashHistory}>
     <Route path="/" component={Main}>
-      <Route path="login" component={LogIn}/>
       <Route path="registration_form" component={RegistrationForm}/>
+        <Route path="login" component={LogIn}/>
+        <Route path="loggedIn" component={LoggedIn}/>
+
     </Route>
-      <Route path="loggedIn" component={LoggedIn}/>
+
   </Router>,
   document.getElementById('app')
 );
