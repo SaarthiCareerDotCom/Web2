@@ -24,9 +24,10 @@ module.exports = {
     alias: {
       Main: 'app/components/Main.jsx',
       Nav: 'app/components/Nav.jsx',
+      RegistrationForm: 'app/components/RegistrationForm.jsx',
       LogIn: 'app/components/LogIn.jsx',
-      LogInForm: 'app/components/LoginForm.jsx',
-      LogIn: 'app/components/LogIn.jsx'
+      LoginForm: 'app/components/LoginForm.jsx',
+      LoggedIn: 'app/components/LoggedIn.jsx'
 
     },
     extensions: ['', '.js', '.jsx']

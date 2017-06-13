@@ -1,10 +1,10 @@
 var usersCollection = require('../firebase/connectUsers');
 
 var register_A_user = function(aUser){
-  var aUserId = aUser.ID.toString();
+  var aUserId = aUser.id.toString();
   usersCollection.child(aUserId).set({
     name : aUser.name,
-    age : aUser.age
+    email : aUser.email
   });
     // console.log(data);
   //   if(err)

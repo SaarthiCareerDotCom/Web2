@@ -1,5 +1,6 @@
-var React= require('react');
-var LogInForm=require('LogInForm')
+var React = require('react');
+var LogInForm = require('LoginForm');
+//var LoginForm = require ('LoginForm');
 var LogIn = React.createClass({
   render:function()
   {
@@ -8,4 +9,5 @@ var LogIn = React.createClass({
     );
   }
 });
+
 module.exports=LogIn;

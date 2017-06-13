@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
-var MOJO = require('../payment/paymentRequest');
+
+// var MOJO = require('../payment/paymentRequest');
 // var User = require('./users');
 // var aUser = new User('abcd','xyz@gmail.com');
 /* GET home page. */

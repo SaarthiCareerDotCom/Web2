@@ -31,10 +31,10 @@ var router = require('./routes/router');
 var users = require('./routes/users');
 
 var app = express();
-app.set('PORT',process.env.PORT || 3000);
+app.set('PORT',process.env.PORT || 8000);
 // view engine setup
-// app.set('views', path.join(__dirname, 'views'));
-// app.set('view engine', 'jade');
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'jade');
 // app.use(function (req, res, next){
 //   if (req.headers['x-forwarded-proto'] === 'https') {
 //     res.redirect('http://' + req.hostname + req.url);

@@ -15,17 +15,17 @@
     "angular": "^1.6.4",
     "axios": "^0.9.1",
     "body-parser": "^1.17.2",
-    "cookie-parser": "~1.4.3",
+    "cookie-parser": "^1.4.3",
     "express": "^4.15.3",
     "express-session": "^1.15.3",
     "firebase": "^4.1.2",
-    "morgan": "~1.8.1",
+    "jade": "^1.11.0",
+    "morgan": "^1.8.1",
     "nodemon": "^1.11.0",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
     "react-router": "^2.0.0",
-    "request": "^2.81.0",
-    "serve-favicon": "~2.4.2"
+    "request": "^2.81.0"
   },
   "devDependencies": {
     "@types/body-parser": "^1.16.3",
@@ -46,7 +46,6 @@
     "script-loader": "^0.6.1",
     "style-loader": "^0.13.0",
     "typescript": "^2.3.3",
-    "webpack": "^1.12.13",
-    "webpack-combine-loaders": "^2.0.3"
+    "webpack": "^1.12.13"
   }
 }
