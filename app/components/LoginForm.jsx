@@ -2,6 +2,7 @@ import React from 'react';
 import firebase from '../configuration/firebase-config.js';
 import Input from './common/InputField';
 import { Link } from 'react-router';
+import LoggedIn from 'LoggedIn';
 
 var googleProvider = new firebase.auth.GoogleAuthProvider();
 var facebookProvider = new firebase.auth.FacebookAuthProvider();
@@ -9,68 +10,62 @@ var facebookProvider = new firebase.auth.FacebookAuthProvider();
 
 var LogInForm = React.createClass({
 
-  login: function (email, password) {
-    if (firebase.auth().currentUser) {
-      firebase.auth().signOut();
-    } else {
-      if (email.length < 4) {
-        consol.log('Please enter an email address.');
-        return;
-      }
-      if (password.length < 4) {
-        console.log('Please enter a password.');
-        return;
-      }
-
-      firebase.auth().signInWithEmailAndPassword(email, password).then((firebaseUser)=>{
-        var uid = firebaseUser.uid;
-        var email = firebaseUser.email;
-        var emailVerified = firebaseUser.emailVerified;
-        console.log(emailVerified,uid,email);
-      }).catch(function (error) {
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        console.log(errorMessage);
-      });
-      }
+  getInitialState: function () {
+    return {
+      loginError: ""
+    }
   },
 
-      LogIn: function(Provider){
-        firebase.auth().signInWithPopup(Provider).then(function (result) {
-        var token = result.credential.accessToken;
-        var user = result.user;
-        console.log(user);
-        //console.log(user.email,user.uid,user.emailVerified);
-      }).catch(function (error) {
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        var email = error.email;
-        var credential = error.credential;
-      });
+  setInitialState: function () {
+    this.setState({
+      loginError: ""
+    });
+  },
+  loginViaEmail: function (email, password) {
+    var _this = this;
+    firebase.auth().signInWithEmailAndPassword(email, password).then((firebaseUser) => {
+      console.log(firebaseUser.uid);
+    }).catch(function (error) {
+      console.log(error);
+      _this.setState({
+        loginError: error.message
+      })
+    });
   },
 
-      //Google
-      googleSignIn: function () {
-        this.LogIn(googleProvider);
-      },
+  loginViaSocialMedia: function (Provider) {
+    var _this = this;
+    firebase.auth().signInWithPopup(Provider).then(function (result) {
+      var token = result.credential.accessToken;
+      var current_user = result.user;
+    }).catch(function (error) {
+      _this.setState({
+        loginError: error.message
+      });
+    });
+  },
 
-      //Facebook
-      facebookSignIn: function () {
-        this.LogIn(facebookProvider);
-      },
+  //Google
+  googleSignIn: function () {
+    this.loginViaSocialMedia(googleProvider);
+  },
 
-      //LinkedIn
-      linkedInSignIn: function() {
-      // var Linkedin = require('node-linkedin')('app-id', 'secret', 'callback');
+  //Facebook
+  facebookSignIn: function () {
+    this.loginViaSocialMedia(facebookProvider);
+  },
 
-        
-      },
+  //LinkedIn
+  linkedInSignIn: function () {
+    // var Linkedin = require('node-linkedin')('app-id', 'secret', 'callback');
+  },
 
 
   onFormSubmit: function () {
     var email = this.refs.email.getValue();
-    var password = this.refs.password.getValue(); 
-    this.login(email,password);
+    var password = this.refs.password.getValue();
+    this.setInitialState();
+    this.loginViaEmail(email, password);
   },
 
   validateUserName: function (value) {
@@ -99,6 +94,7 @@ var LogInForm = React.createClass({
                 <Input className="login-box-input" type="password" name="password" placeholder="Password"
                   errorMessage="Password should have minimum 6 characters" validate={this.validatePassword} ref="password" />
                 <input className="login-box-submit-button" type="button" onClick={this.onFormSubmit} value="Login" />
+                {this.state.loginError && <p>{this.state.loginError}</p>}
                 <div>Donnot have an account?<Link to={'/registration'}>create one</Link></div>
                 <div ><Link to={'/forgotpassword'}>Forgot Password</Link></div>
               </div>
@@ -109,7 +105,7 @@ var LogInForm = React.createClass({
                 <button className="loginBtn loginBtn--facebook" onClick={this.facebookSignIn}>Facebook</button>
                 <br />
                 <br />
-                <button  className="loginBtn loginBtn--google" onClick={this.googleSignIn}>Google</button>
+                <button className="loginBtn loginBtn--google" onClick={this.googleSignIn}>Google</button>
                 <br />
                 <br />
                 <button className="loginBtn loginBtn--linkdin" onClick={this.linkedInSignIn}>LinkedIn</button>
