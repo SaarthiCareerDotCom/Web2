@@ -1,10 +1,11 @@
 var React = require('react');
-var {Link, IndexLink} = require('react-router');
+var { Link, IndexLink } = require('react-router');
+
 
 var Nav = React.createClass({
   onSearch: function (e) {
-      e.preventDefault();
-      alert('Not yet wired up!');
+    e.preventDefault();
+    alert('Not yet wired up!');
   },
   render: function () {
     return (
@@ -19,7 +20,7 @@ var Nav = React.createClass({
             <ul className="menu">
               <li>
                 <Link to="/login">
-                <input type="submit" className="button" value="LogIn"/>
+                  <input type="submit" className="button" value="LogIn" />
                 </Link>
               </li>
             </ul>
