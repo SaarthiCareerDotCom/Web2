@@ -1,9 +1,9 @@
 var express = require('express');
 var router = express.Router();
-
+var request = require('request');
 var register_A_user = require('./register');
 var getUserDetails = require('./signin');
-var paymentRequest = require('./payment/paymentRequest');
+//var paymentRequest = require('./payment/paymentRequest');
 
 /* GET users listing. */
 router.post('/register', function(req, res, next) {
@@ -24,15 +24,48 @@ router.post('/signin',function(req, res, next) {
 });
 
 
-router.post('/payment',function(req,res,next){
-  var validatedUser = req.body;
-      paymentRequest(validatedUser,function (redirect_url) {
-        res.redirect(redirect_url);
-      });
+router.post('/payment',function(req,res){
+
+
+var headers = { 'X-Api-Key': 'aa8ff19fddf6cabc8d923b7d401ba7b6', 'X-Auth-Token': '7e40194c2a81ddcd85fdf57382342991'};
+var payload = {
+  purpose: 'FIFA 16',
+  amount: '1001',
+  phone: '9916804203',
+  buyer_name: 'godzilla',
+  redirect_url: 'http://localhost:3000/users/paymentSuccessful',
+  send_email: true,
+  webhook: 'http://192.168.0.107:3000/users/webhook',
+  send_sms: true,
+  email: 'anuragbabel11@gmail.com',
+  allow_repeated_payments: false};
+
+
+
+request.post('https://test.instamojo.com/api/1.1/payment-requests/', {form: payload,  headers: headers}, function(error, response, body){
+
+    console.log(body);
+    var data = JSON.parse(body);
+
+    console.log(error);
+
+//  console.log( data ) ;
+//console.log(data["payment_request"]["longurl"]);
+ x = data["payment_request"]["longurl"];
+//request.get(x,function(err,res,body){
+//  console.log(body);
+res.redirect(x);
 });
 
-router.get('/paymentSuccesful',function (req,res,next) {
-  res.send("payment succesfull.");
+
 });
 
+
+router.get('/paymentSuccessful',function (req,res,next) {
+  res.send('<h1>done</h1>');
+});
+router.get('/webhook',function (req,res,next) {
+console.log('123');
+res.end(req.body);
+});
 module.exports = router;

@@ -15,8 +15,6 @@ var RegistrationForm = React.createClass({
       .then(function(firebaseUser){
         var uid = firebaseUser.uid;
         console.log(uid);
-      //  firebase.database().ref('saarthi').child('users').child(uid.toString()).set(aUser);
-
         fetch('http://localhost:3000/users/register', {
   method: 'POST',
   headers: {
