@@ -10,6 +10,7 @@ var RegistrationForm = React.createClass({
 		}
 	},
   register: function (aUser) {
+// <<<<<<< HEAD
       // firebase.auth().createUserWithEmailAndPassword(aUser.email, aUser.password)
       // .then(function(firebaseUser){
       //   var uid = firebaseUser.uid;
@@ -20,14 +21,14 @@ var RegistrationForm = React.createClass({
           method: 'POST',
           headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json',
+            'Content-Type': 'application/json'
           },
           body: JSON.stringify({
             // name: aUser.name,
             // email: aUser.email,
             // id:uid
-             id : '3',
-             name : 'abcd',
+             id : '4',
+             name : 'xyz',
              amount : '900',
              purpose : 'temp',
              email : 'foo@gmail.com',
@@ -35,8 +36,8 @@ var RegistrationForm = React.createClass({
           })
         })
         .then(function(res){
-          // return res.json();
             console.log('okay');
+            // return res.json();
             // function()
 
             // re.redirect("https://test.instamojo.com/@himanshu_667c4/c3e915b198f141d6891455b35dc9a806");
@@ -44,12 +45,18 @@ var RegistrationForm = React.createClass({
           })
           // .then(function(d){
           //   // res.redirect(d);
-          //   fetch(d).then(function(res){
+          //   fetch(d,{
+          //     headers: {
+          //       'Accept': 'application/json',
+          //       'Content-Type': 'application/json',
+          //       'mode': 'cors'
+          //     }
+          //   }).then(function(res){
           //     // return res.json();
           //       console.log('in redirect');
-          //       // function()
-          //
-          //       re.redirect("https://test.instamojo.com/@himanshu_667c4/c3e915b198f141d6891455b35dc9a806");
+          // //       // function()
+          // //
+          // //       re.redirect("https://test.instamojo.com/@himanshu_667c4/c3e915b198f141d6891455b35dc9a806");
           //     });
           // })
 
@@ -59,6 +66,31 @@ var RegistrationForm = React.createClass({
 
 
         // });
+// =======
+//       firebase.auth().createUserWithEmailAndPassword(aUser.email, aUser.password)
+//       .then(function(firebaseUser){
+//         var uid = firebaseUser.uid;
+//         console.log(uid);
+//         fetch('http://localhost:3000/users/register', {
+//   method: 'POST',
+//   headers: {
+//     'Accept': 'application/json',
+//     'Content-Type': 'application/json',
+//   },
+//   body: JSON.stringify({
+//     name: aUser.name,
+//     email: aUser.email,
+//     id:uid
+//   })
+// })
+// .then(function(res){
+//   //return res.json();
+//     console.log('okay');
+//   }).catch(function(err){
+//     console.log(err);
+//   })
+//
+// >>>>>>> c115fab2b3625ef2a37ef312de10688c63a3dcb4
 
 
 
