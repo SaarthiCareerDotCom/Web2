@@ -64,12 +64,14 @@ var LogInForm = React.createClass({
   },
 
 
+
   onFormSubmit: function () {
     var email = this.refs.email.getValue();
     var password = this.refs.password.getValue();
     this.setInitialState();
     this.loginViaEmail(email, password);
   },
+
 
   render: function () {
     if (this.state.steps == 1) {
