@@ -21,14 +21,26 @@ var RegistrationForm = React.createClass({
     });
   },
 
-  registerViaEmail: function (email, password) {
+  registerViaEmail: function (aUser) {
     var _this = this;
-    firebase.auth().createUserWithEmailAndPassword(email, password).then(function (firebaseUser) {
+    firebase.auth().createUserWithEmailAndPassword(aUser.email, aUser.password).then(function (firebaseUser) {
       var uid = firebaseUser.uid;
       var emailVerified = firebaseUser.emailVerified;
-      var email = firebaseUser.email;
-
-      console.log(email, uid, emailVerified);
+    //  var email = firebaseUser.email;
+    fetch('http://localhost:3000/users/register', {
+method: 'POST',
+headers: {
+  'Accept': 'application/json',
+  'Content-Type': 'application/json',
+},
+body: JSON.stringify({
+  username: aUser.username,
+  email: aUser.email,
+  id:uid
+})
+})
+console.log('added to database');
+    //  console.log(email, uid, emailVerified);
       firebaseUser.sendEmailVerification().then(() => {
         _this.setState({
           verifyEmailMessage: "Signup Successful: verification email is sent to your email address, please verify the same"
@@ -69,18 +81,25 @@ var RegistrationForm = React.createClass({
 
   onFormSubmit: function (e) {
     e.preventDefault();
-    var username = this.refs.name.getValue();
-    var email = this.refs.email.getValue();
-    var password = this.refs.password.getValue();
-    var repassword = this.refs.password2.getValue();
 
-    if(this.validateUserName(username) &&
+    var aUser = {
+ 'username' : this.refs.name.getValue(),
+ 'email' : this.refs.email.getValue(),
+ 'password' : this.refs.password.getValue(),
+ 'repassword' : this.refs.password2.getValue()
+
+};
+var username = this.refs.name.getValue();
+var email = this.refs.email.getValue();
+var password = this.refs.password.getValue();
+var repassword = this.refs.password2.getValue();
+  if(this.validateUserName(username) &&
         this.validateEmail(email) &&
         this.validatePassword(password) &&
         this.validateConfirmPassword(repassword)) {
 
       this.setInitialState();
-      this.registerViaEmail(email, password);
+      this.registerViaEmail(aUser);
     }
   },
 
