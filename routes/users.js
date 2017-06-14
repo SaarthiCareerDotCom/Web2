@@ -3,6 +3,7 @@ var router = express.Router();
 var request = require('request');
 var register_A_user = require('./register');
 var getUserDetails = require('./signin');
+//var err ={};
 //var paymentRequest = require('./payment/paymentRequest');
 
 /* GET users listing. */
@@ -66,6 +67,6 @@ router.get('/paymentSuccessful',function (req,res,next) {
 });
 router.get('/webhook',function (req,res,next) {
 console.log('123');
-res.end(req.body);
+//res.end(req.body);
 });
 module.exports = router;
