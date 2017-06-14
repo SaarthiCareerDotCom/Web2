@@ -74,8 +74,14 @@ var RegistrationForm = React.createClass({
     var password = this.refs.password.getValue();
     var repassword = this.refs.password2.getValue();
 
-    this.setInitialState();
-    this.registerViaEmail(email, password);
+    if(this.validateUserName(username) && 
+        this.validateEmail(email) && 
+        this.validatePassword(password) && 
+        this.validateConfirmPassword(repassword)) {
+      
+      this.setInitialState();
+      this.registerViaEmail(email, password);
+    }
   },
 
   validateUserName: function (value) {
