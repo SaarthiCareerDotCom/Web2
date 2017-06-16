@@ -8,15 +8,14 @@ var LogIn=require('LogIn')
 // Load foundation
 require('style!css!foundation-sites/dist/foundation.min.css')
 $(document).foundation();
-
 ReactDOM.render(
   <Router history={hashHistory}>
     <Route path="/" component={Main}>
       <Route path="registration_form" component={RegistrationForm}/>
-        <Route path="login" component={LogIn}/>
-        <Route path="UserDashboard" component={UserDashboard}/>
+      <Route path="login" component={LogIn}/>
+      <Route path="UserDashboard" component={UserDashboard}/>
+  </Route>
 
-    </Route>
 
   </Router>,
   document.getElementById('app')

@@ -4,6 +4,7 @@ import Input from './common/InputField';
 import { Link } from 'react-router';
 import UserDashboard from '../components/UserDashboard';
 
+
 var googleProvider = new firebase.auth.GoogleAuthProvider();
 var facebookProvider = new firebase.auth.FacebookAuthProvider();
 
@@ -76,6 +77,9 @@ var LogInForm = React.createClass({
   render: function () {
     if (this.state.steps == 1) {
       return (
+
+
+
         <div className="login-box">
           <form>
             <div className="row collapse expanded">
@@ -107,10 +111,11 @@ var LogInForm = React.createClass({
             </div>
           </form>
         </div>
+
       );
     }
     else {
-      return <UserDashboard />
+      return (<UserDashboard />);
     }
   }
 });

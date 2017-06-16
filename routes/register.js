@@ -9,5 +9,4 @@ var register_A_user = function(aUser){
   });
 
 }
-
 module.exports = register_A_user;
