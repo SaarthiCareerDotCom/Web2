@@ -1,17 +1,15 @@
 var usersCollection = require('../firebase/connectUsers');
 
-var register_A_user = function(aUser){
+var register_A_user = function(aUser,callback){
   var aUserId = aUser.id.toString();
   usersCollection.child(aUserId).set({
     username : aUser.username,
-    email : aUser.email
+    email : aUser.email,
+  },function (error) {
+    if(error)callback(false,null,error);
+    else callback(true,aUser,null);
   });
-    // console.log(data);
-  //   if(err)
-  //     console.log(err);
-  //   else
-  //     console.log('user inserted succesfully');
-  // });
+
 }
 
 module.exports = register_A_user;

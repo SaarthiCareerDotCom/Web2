@@ -1,5 +1,10 @@
 var reqS2S = require('request');
-
+var ngrok = require('ngrok');
+var webhook;
+ngrok.connect(3000,function (err, url) {
+  webhook = url.toString();
+  console.log(webhook);
+});
 // req.get('http://www.google.com',(err,res,body)=>{
   // console.log('error : ',err);
   // console.log('resCode : ',res && res.statusCode);
@@ -13,14 +18,11 @@ var customReqHeader = {
 
 var paymentRequest = function(validatedUser,callback){
   var id = validatedUser.id;
-  var name = validatedUser.name;
+  var name = validatedUser.username;
   var amount = validatedUser.amount;
   var purpose = validatedUser.purpose;
   var email = validatedUser.email;
   var phone = validatedUser.phone;
-  // var webhook = 'http://localhost:3000/users/'+id+'/paymentSuccessful';
-  // console.log(details,amount,purpose,email,phone);
-// console.log(webhook);
   var customReqBody = {
     'amount' : amount,
     'purpose' : purpose,
@@ -29,53 +31,19 @@ var paymentRequest = function(validatedUser,callback){
     'phone' : phone,
     'allow_repeated_payments' : false,
     'redirect_url' : 'http://localhost:3000/',
-    // 'webhook' : 'http://192.168.0.108:3000/users/'+id+'/paymentSuccessful'
+    'webhook' : webhook + '/api/paymentSuccessful/'+ id
     // 'expires_at' : ''
   };
   reqS2S.post('https://test.instamojo.com/api/1.1/payment-requests/',{
         form : customReqBody,headers : customReqHeader},function(error,S2SResponse,resBody){
-        // {
-          // console.log(S2SResponse.statusCode);
-          // console.log(resBody);
           if(!error && S2SResponse.statusCode == 201){
-            // console.log(JSON.parse(resBody)['payment_request']['longurl']);
-            // res.redirect(JSON.parse(resBody)['payment_request']['longurl']);
-            callback(JSON.parse(resBody)['payment_request']['longurl']);
-            // callback(JSON.parse(resBody));
+            console.log(JSON.parse(resBody));
+            callback(true,JSON.parse(resBody)['payment_request']['longurl'],null);
           }
           else
             console.log(error,S2SResponse.statusCode,resBody);
+            callback(false,null,error);
         }
       );
 };
 module.exports = paymentRequest;
-// paymentRequest(customReqBody,null);
-
-// module.exports =  function(req,res){
-//     // var redirect_url;
-//     reqS2S.post('https://test.instamojo.com/api/1.1/payment-requests/',{
-//       form : customReqBody,headers : customReqHeader},function(error,S2SResponse,resBody){
-//         // console.log(S2SResponse.statusCode);
-//         // console.log(resBody);
-//         if(!error && S2SResponse.statusCode == 201){
-//           // console.log(JSON.parse(resBody)['payment_request']['longurl']);
-//           res.redirect(JSON.parse(resBody)['payment_request']['longurl']);
-//         }
-//         else
-//           console.log(error,S2SResponse.statusCode,resBody);
-//       }
-//     );
-//   }
-
-
-// module.exports = redirect_url;
-// var Payment = function(aUser){
-//   this.userDetails = {
-//     'amount' : aUser.cart,
-//     'purpose' : 'buyCourse',
-//     'buyer_name' : 'ajay',
-//     'email' : 'foo@example.com',
-//     'phone' : '1234567890',
-//     'allow_repeated_payments' : false
-//   }
-// }

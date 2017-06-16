@@ -22,6 +22,7 @@ var LogInForm = React.createClass({
       loginError: ""
     });
   },
+  
   loginViaEmail: function (email, password) {
     var _this = this;
     firebase.auth().signInWithEmailAndPassword(email, password).then((firebaseUser) => {

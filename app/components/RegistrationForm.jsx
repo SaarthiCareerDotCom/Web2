@@ -27,7 +27,7 @@ var RegistrationForm = React.createClass({
       var uid = firebaseUser.uid;
       var emailVerified = firebaseUser.emailVerified;
     //  var email = firebaseUser.email;
-      fetch('http://localhost:3000/users/register', {
+      fetch('http://localhost:3000/api/register', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -85,20 +85,20 @@ var RegistrationForm = React.createClass({
     e.preventDefault();
 
     var aUser = {
- 'username' : this.refs.name.getValue(),
- 'email' : this.refs.email.getValue(),
- 'password' : this.refs.password.getValue(),
- 'repassword' : this.refs.password2.getValue()
+      'username' : this.refs.name.getValue(),
+      'email' : this.refs.email.getValue(),
+      'password' : this.refs.password.getValue(),
+      'repassword' : this.refs.password2.getValue()
 
-};
-var username = this.refs.name.getValue();
-var email = this.refs.email.getValue();
-var password = this.refs.password.getValue();
-var repassword = this.refs.password2.getValue();
-  if(this.validateUserName(username) &&
-        this.validateEmail(email) &&
-        this.validatePassword(password) &&
-        this.validateConfirmPassword(repassword)) {
+    };
+    var username = this.refs.name.getValue();
+    var email = this.refs.email.getValue();
+    var password = this.refs.password.getValue();
+    var repassword = this.refs.password2.getValue();
+    if(this.validateUserName(username) &&
+    this.validateEmail(email) &&
+    this.validatePassword(password) &&
+    this.validateConfirmPassword(repassword)) {
 
       this.setInitialState();
       this.registerViaEmail(aUser);
@@ -110,7 +110,7 @@ var repassword = this.refs.password2.getValue();
   },
 
   validateEmail: function (value) {
-    var emailExpression = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    var emailExpression = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return emailExpression.test(value);
   },
 
