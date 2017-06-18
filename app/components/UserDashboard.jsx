@@ -61,7 +61,7 @@ var uid = firebase.auth().currentUser.uid;
                 console.log(data.percentage);
               if(data.info == true){
                 var timestamp = Date.now();
-                console.log(timestamp);
+            
                 var date = new Date(timestamp);
                 console.log(date);
 

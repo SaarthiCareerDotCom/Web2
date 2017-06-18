@@ -16,7 +16,7 @@ var getUserDetails = function(validatedUserId,callback)
 };
 
 var getCouponDetails = function(coupon_code,callback){
-  var info,percentage,quantity;
+  var info,percentage,quantity,validity;
   var ref = firebase.database().ref("saarthi/coupons");
   ref.orderByChild("code").equalTo(coupon_code).on("value", function(snapshot) {
     console.log(snapshot.val());
@@ -26,9 +26,13 @@ var getCouponDetails = function(coupon_code,callback){
       var key = Object.keys(data);
        percentage = data[key]["percentage"];
        quantity = data[key]["quantity"];
-       if( quantity > 0){
-
-        info = true;
+       validity = data[key]["validity"];
+       validity=validity.split("/");
+       var CouponDate=validity[1]+"/"+validity[0]+"/"+validity[2];
+       var timestamp =new Date(CouponDate).getTime();
+       var currentTimestamp = Date.now();
+       if( quantity > 0 && (currentTimestamp < timestamp)){
+         info = true;
         console.log('coupon verified');
           callback(info,percentage);
 }else{
