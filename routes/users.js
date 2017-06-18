@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var request = require('request');
 var register_A_user = require('./register');
-var getUserDetails = require('./signin');
+//var getUserDetails = require('./signin');
 var   usersCollection = require('../firebase/connectUsers');
  var openurl = require("openurl");
 var firebase = require('firebase');
@@ -16,27 +16,55 @@ var getUserDetails = function(validatedUserId,callback)
 };
 
 var getCouponDetails = function(coupon_code,callback){
-  var info;
-
+  var info,percentage,quantity;
   var ref = firebase.database().ref("saarthi/coupons");
+  ref.orderByChild("code").equalTo(coupon_code).on("value", function(snapshot) {
+    console.log(snapshot.val());
+    var data = snapshot.val();
 
+    if(data != undefined ){
+      var key = Object.keys(data);
+       percentage = data[key]["percentage"];
+       quantity = data[key]["quantity"];
+       if( quantity > 0){
 
-   ref.orderByChild('code').on("value",function(snapshot){
-     var data = snapshot.val();
-    for (var key in data) {
-      if (data[key] == coupon_code) {
-      info = true;
-      callback(info);
-      console.log(info);
-      return;
+        info = true;
+        console.log('coupon verified');
+          callback(info,percentage);
+}else{
+  percentage = '0';
+  info = false;
+  callback(info,percentage);
+}
       }
-      else{
+      else   {
+        percentage = '0';
       info = false;
-        console.log(info);
+      console.log('invalid coupon');
+        callback(info,percentage);
+
     }
-  }
-callback(info);
-});
+
+
+
+  });
+
+    //  var data = snapshot.val();
+    //  console.log(data);
+//     for (var key in data) {
+//       if (data[key] == coupon_code) {
+//       info = true;
+//       callback(info);
+//       console.log(info);
+//       return;
+//       }
+//       else{
+//       info = false;
+//         console.log(info);
+//     }
+//   }
+// callback(info);
+//});
 };
 /* GET users listing. */
 router.post('/register', function(req, res, next) {
@@ -48,9 +76,15 @@ router.post('/register', function(req, res, next) {
 // check for coupons
 router.post('/coupon', function(req, res, next) {
 var coupon_code = req.body.cc;
-getCouponDetails(coupon_code,function(info){
-console.log(info);
-res.send(JSON.stringify(info));
+console.log(coupon_code);
+getCouponDetails(coupon_code,function(info,percentage){
+console.log(info,percentage);
+var a ={
+  'info' : info,
+  'percentage' : percentage
+}
+console.log(a);
+res.send(JSON.stringify(a));
 
 });
 
@@ -66,6 +100,20 @@ router.post('/signin',function(req, res, next) {
     }
   });
 });
+router.post('/user_details',function(req, res, next) {
+
+  var validatedUserId = req.body.id;
+  getUserDetails(validatedUserId,(userDetails) => {
+    if(userDetails){
+        // console.log(userDetails);
+      res.send(userDetails);
+
+  }else{
+      res.send('ID is NOT specified.');
+    }
+  });
+});
+
 
 
 router.post('/payment',function(req,res){
@@ -127,5 +175,26 @@ router.post('/webhook',function (req,res,next) {
   console.log(res.body);
 console.log('123');
 //res.end(req.body);
+});
+var updateProfile = function(uid,dataToBeUpdatedObj,callback){
+  usersCollection.child(uid).update({
+    username :dataToBeUpdatedObj.username,
+    college : dataToBeUpdatedObj.college,
+    branch: dataToBeUpdatedObj.branch,
+    contactno : dataToBeUpdatedObj.contactno
+  });
+  callback(true);
+};
+router.post('/updateProfile',function(req,res,next){
+  var uid = req.body.id;
+  console.log(req.body);
+  updateProfile(uid,req.body,(status)=>{
+    if(status)
+    res.send({message :"profile update successfully"});
+    else {
+      res.send({message : "some error"});
+    }
+  }
+);
 });
 module.exports = router;

@@ -3,7 +3,7 @@ import firebase from '../configuration/firebase-config.js';
 import Input from './common/InputField';
 import { Link } from 'react-router';
 import UserDashboard from '../components/UserDashboard';
-
+var Nav = require('Nav');
 
 var googleProvider = new firebase.auth.GoogleAuthProvider();
 var facebookProvider = new firebase.auth.FacebookAuthProvider();
@@ -77,10 +77,10 @@ var LogInForm = React.createClass({
   render: function () {
     if (this.state.steps == 1) {
       return (
+      <div>
+            <Nav />
+          <div className="login-box">
 
-
-
-        <div className="login-box">
           <form>
             <div className="row collapse expanded">
               <div className="small-12 large-6 column small-order-2 medium-order-1">
@@ -111,7 +111,7 @@ var LogInForm = React.createClass({
             </div>
           </form>
         </div>
-
+</div>
       );
     }
     else {
