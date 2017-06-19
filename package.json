@@ -4,8 +4,8 @@
   "description": "Website for saarthi",
   "main": "server/server-app.js",
   "scripts": {
-    "build": "npm run gulp",
-    "start": "nodemon server-app.js",
+    "build": "webpack -w",
+    "start": "nodemon ./server/server-app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Himanshu Lilha",
@@ -16,9 +16,12 @@
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
     "firebase": "^4.1.2",
+    "morgan": "^1.8.2",
+    "openurl": "^1.1.1",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
-    "react-router": "^2.0.0"
+    "react-router": "^2.0.0",
+    "request": "^2.81.0"
   },
   "devDependencies": {
     "@types/body-parser": "^1.16.3",
