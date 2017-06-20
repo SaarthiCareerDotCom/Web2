@@ -7,7 +7,6 @@ var userProfile = require('../userProfile/userProfile');
 var coupons = require('../coupons/coupons');
 var userCourses = require('../courses/userCourses');
 var course = require('../courses/course');
-
 /* api handlers. */
 router.post(serverAPI.registerAPI, function(req, res, next) {
   userProfile.register_A_user(req.body,(status,aUser,error) => {
@@ -57,7 +56,7 @@ router.post(serverAPI.paymentAPI,function(req,res,next){
       res.status(400).send({message : "user does not exist"});
     }
   });
-      
+
 });
 
 router.post(serverAPI.paymentSuccessfulAPI + '/:uid/:couponUsed',function (req,res,next) {
@@ -115,6 +114,64 @@ router.post(serverAPI.getACourseDetailAPI,function(req,res,next){
     if(status == 200)res.status(status).send(courseDetail);
     else res.status(status).send(error.message);
   });
+});
+router.post(serverAPI.questionAnswer,function(req,res){
+  //question
+     var questions = firebase.database().ref('saarthi').child('questions');
+     var answers = firebase.database().ref('saarthi').child('answers');
+//   //var currentUserUid = firebase.auth().currentUser.uid;
+     var refKey = questions.push();
+     console.log(refKey.key);
+     refKey.update({
+     question:'how r u mate',
+     uid: 'currentUserUid'
+    }).catch((err)=>{
+       console.log(err);
+  });
+  //answer
+  var qkey = answers.child(refKey.key)
+  .push().update({
+    answers:'i am fine bitches',
+    uid: 'currentUserUid'
+   }).
+  catch((err)=>{
+    console.log(err);
+  });
+
+  res.send('hello qna');
+});
+router.get(serverAPI.contactUs,function(req,res){
+  var contactUs = firebase.database().ref('saarthi').child('contactUs');
+  var refKey = contactUs.push();
+  refKey.update({
+    name : 'foo',
+    email : 'foo@gmail.com',
+    uid : 'currentUserUid',
+    message :'hello world'
+  }).catch((err)=>{
+    console.log(err);
+  });
+console.log('feedback');
+res.send('feedback given');
+res.end();
+});
+router.get(serverAPI.di,function(req,res){
+  var ref =firebase.database().ref('saarthi').child('questions');
+  var answers = firebase.database().ref('saarthi').child('answers');
+  var keys;
+  ref.once('value',function(snapshot){
+     var qkeys = Object.keys(snapshot.val());
+     keys = qkeys[28];
+    console.log(qkeys[28]);
+  }).then(()=>{
+    console.log(1,keys);
+    answers.child(keys).on('value',function(data){
+      console.log(data.val());
+      res.end();
+    });
+
+  });
+
 });
 
 module.exports = router;

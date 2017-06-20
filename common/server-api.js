@@ -10,8 +10,8 @@ serverAPI.enrollInACourseAPI = "/enrollInACourse";
 serverAPI.enrolledCoursesAPI = "/enrolledCourses";
 serverAPI.getAllCourseIdAPI = "/getAllCourseId";
 serverAPI.getACourseDetailAPI = "/getACourseDetail";
-serverAPI.getContactAPI = "/";
-
-
+serverAPI.questionAnswer = "/questionAnswer";
+serverAPI.contactUs ='/contactUs';
+serverAPI.displayQuestionAnswer ='displayQuestionAnswer';
 
 module.exports = serverAPI;
