@@ -1,15 +1,16 @@
 class serverAPI {
 }
-serverAPI.paymentAPI = "/payment";
 serverAPI.registerAPI = "/register";
 serverAPI.profileAPI = "/profile";
-serverAPI.updateProfileAPI = "/updateProfile";
-serverAPI.paymentSuccessfulAPI = "/paymentSuccessful";
-serverAPI.getCouponAPI = "/getCoupon";
-serverAPI.enrollInACourseAPI = "/enrollInACourse";
-serverAPI.enrolledCoursesAPI = "/enrolledCourses";
-serverAPI.getAllCourseIdAPI = "/getAllCourseId";
-serverAPI.getACourseDetailAPI = "/getACourseDetail";
+serverAPI.updateProfileAPI = "/profile/update";
+serverAPI.paymentAPI = "/payment/request";
+serverAPI.paymentSuccessfulAPI = "/payment/successful";
+serverAPI.verifyCouponAPI = "/coupon/verify";
+serverAPI.enrollInACourseAPI = "/course/enroll";
+serverAPI.enrolledCoursesAPI = "/course/enrolled";
+// serverAPI.getAllCourseIdAPI = "/all/course/id";
+serverAPI.courseDetailAPI = "/course/detail";
+serverAPI.courseNotification = "/course/notification"
 serverAPI.getContactAPI = "/";
 
 

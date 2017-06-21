@@ -1,5 +1,5 @@
 import React from 'react';
-import firebase from '../configuration/firebase-config';
+import firebase from '../../common/firebase-config';
 import commonContants from '../../common/constants';
 import commonAPI from '../../common/server-api';
 
@@ -9,7 +9,7 @@ var UserDashboard = React.createClass({
         var host = commonContants.HOST + ":" + commonContants.PORT;
         var paymentUri = host + commonAPI.paymentAPI;
         var purpose = 'course buy';
-        
+
         var header = {
             'Accept': 'application/json',
             'Content-Type': 'application/json'

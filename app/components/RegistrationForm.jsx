@@ -1,5 +1,5 @@
 import React from 'react';
-import firebase from '../configuration/firebase-config';
+import firebase from '../../common/firebase-config';
 import Input from './common/InputField';
 import { Link } from 'react-router';
 
@@ -74,11 +74,11 @@ var RegistrationForm = React.createClass({
     var password = this.refs.password.getValue();
     var repassword = this.refs.password2.getValue();
 
-    if(this.validateUserName(username) && 
-        this.validateEmail(email) && 
-        this.validatePassword(password) && 
+    if(this.validateUserName(username) &&
+        this.validateEmail(email) &&
+        this.validatePassword(password) &&
         this.validateConfirmPassword(repassword)) {
-      
+
       this.setInitialState();
       this.registerViaEmail(email, password);
     }

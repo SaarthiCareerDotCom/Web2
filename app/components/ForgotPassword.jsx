@@ -1,5 +1,5 @@
 import React from 'react';
-import firebase from '../configuration/firebase-config';
+import firebase from '../../common/firebase-config';
 
 var ForgotPassword = React.createClass({
 

@@ -1,14 +1,13 @@
 var reqS2S = require('request');
 var ngrok = require('ngrok');
 var firebase = require('../../common/firebase-config');
-var constants = require('../../common/constants');
+var constants = require('../constants/constants');
 var serverAPI = require('../../common/server-api');
 var paymentsCollection = firebase.database().ref('saarthi').child('payments');
 var usersCollection = firebase.database().ref('saarthi').child('users');
 var webhook;
 ngrok.connect(constants.PORT,function (err, url) {
-  webhook = url.toString();
-  console.log(webhook);
+  // console.log(err,url);
 });
 
 var savePaymentID = function(uid,couponUsed,aPaymentDetail){
@@ -62,5 +61,5 @@ var paymentRequest = function(uid,userDetails,priceDetails,callback){
 module.exports = {
   "savePaymentDetails" : savePaymentDetails,
   "paymentRequest" : paymentRequest,
-  "savePaymentID" : savePaymentID 
+  "savePaymentID" : savePaymentID
 };

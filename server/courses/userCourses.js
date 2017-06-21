@@ -1,4 +1,5 @@
 var firebase = require('../../common/firebase-config');
+var course = require('./course');
 var enrolledCourseCollection = firebase.database().ref('saarthi').child('enrolled');
 
 var enrollInACourse = function(uid,courseId,callback){
@@ -13,30 +14,28 @@ var enrollInACourse = function(uid,courseId,callback){
 
 var enrolledCourses = function(uid,callback){
     var enrolledCourse = [];
+    var nonEnrolledCourse = [];
     enrolledCourseCollection.child(uid).child("courses").once('value',function(data){
-        var keys = Object.keys(data.val());
-        keys.map(function(val){
+        if(data.val()){
+          var keys = Object.keys(data.val());
+          keys.map(function(val){
             enrolledCourse.push(data.val()[val]["courseId"]);
-        });
+          });
+        }
     }).then(()=>{
-        callback(200,enrolledCourse,null);
+        course.getAllCourseId((status,allCourseId,error)=>{
+          if(status==200){
+            nonEnrolledCourse = allCourseId.filter((courseId)=>{
+              return enrolledCourse.indexOf(courseId) == -1;
+            });
+            callback(200,{"enrolledCourse" : enrolledCourse,"nonEnrolledCourse" : nonEnrolledCourse},null);
+          }
+          else callback(400,null,error);
+        });
     }).catch((error)=>{
         callback(400,null,error);
     });
 }
-
-var courseNotification = function(enrolledCourse){
-    var ref = firebase.database().ref();
-        for(var j=0; j < courses.length;j++){
-            var  course = ref.child('courses/'+courses[j]);
-            course.orderByChild('time').on('value',function(data){
-            var key =  Object.keys(data.val());
-            for(var i =0; i < key.length; i++)
-                console.log(data.val()[key[i]]['message']);
-            })
-        }      
-}
-
 
 
 module.exports = {

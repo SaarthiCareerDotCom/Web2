@@ -1,10 +1,11 @@
 var firebase = require('../../common/firebase-config');
+var message = require('../constants/message');
 var usersCollection = firebase.database().ref('saarthi').child('users');
 
 var getProfile = function(userId, callback) {
     usersCollection.orderByKey().equalTo(userId).once('value',function(dataSet){
-      console.log(dataSet.val());
-      dataSet.val() ? callback(200,dataSet.val()[userId],null) : callback(400,null,null);
+      var details = dataSet.val();
+      callback(200,details ? details : {message : message.profileError}, null);
     }).catch((error) => {
       callback(400,null,error);
     });

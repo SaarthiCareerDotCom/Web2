@@ -1,5 +1,5 @@
 import React from 'react';
-import firebase from '../configuration/firebase-config.js';
+import firebase from '../../common/firebase-config';
 import Input from './common/InputField';
 import { Link } from 'react-router';
 import UserDashboard from '../components/UserDashboard';
