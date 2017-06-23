@@ -13,7 +13,7 @@ app.set('PORT', process.env.PORT || constants.PORT);
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname,'client')));
+app.use(express.static(path.join(__dirname,'../','client')));
 
 app.use('/api', api);
 
