@@ -1,5 +1,5 @@
 import React from 'react';
-import firebase from '../configuration/firebase-config';
+import firebase from '../../common/firebase-config.js';
 import commonContants from '../../common/constants';
 import commonAPI from '../../common/server-api';
 
