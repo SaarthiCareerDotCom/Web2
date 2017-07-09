@@ -1,8 +1,45 @@
 import React from 'react';
 import { Link } from 'react-router';
+import Equalizeheight from './common/Equalizeheight';
 
 export default class Enrolledcourses extends React.Component{
+	constructor(props) {
+		super(props);
+		this.state = {
+			heightEl : 'inital'
+		}
+		this.updateHeight = () => {
+			let elements = document.querySelectorAll('.course-list .title');
+			elements = Array.prototype.slice.call(elements);
+			let max = 0;
+			if(elements.length == 0) {
+				return;
+			}
+			elements.map((el, i) => {
+				if(el.clientHeight > max) {
+					max = el.clientHeight;
+				}
+			});
+			let newState = Object.assign({}, this.state);
+			newState.heightEl = max + 'px';
+			this.setState(newState);
+		}
+	}
+	componentDidMount() {
+		this.updateHeight();
+	}
+	shouldComponentUpdate() {
+		if(this.state.heightEl !== 'inital') {
+			return false;
+		}	else 	{
+			return true;
+		}
+	}
+	componentDidUpdate() {
+		this.updateHeight();
+	}
 	render(){
+		var that = this;
 		return(
 		<section className="courses fullWidth">
 	<div className="row">
@@ -14,90 +51,24 @@ export default class Enrolledcourses extends React.Component{
 		</div>
 	</div>
 	<div className="row course-list">
-		<div className="course-tile">
+		{this.props.courses.map((course, i) => {
+			return (
+				<div className="course-tile" key={i}>
 			<div className="container">
-				<p className="title">Introduction to Python</p>
+				<p className="title" style={{"height": `${that.state.heightEl}`}}>{course.title}</p>
 				<hr className="divider"/>
 				<div className="status">
-					9/19 completed
+					{course.completed ? course.completed[0] + '/' + course.completed[1] : 'New Course'}
 				</div>
-				<div className="continue active">
+				<div className="continue active"  style={{"visibility" : `${course.completed ? "visible" : "hidden"}`}}>
 					continue from
-				</div><a className="action" href="/course">Application of Linked List</a>
+				</div><a className="action" href={`/course/${ course.next ? course.next.code : course.code }`}>{course.next ? course.next.topic : 'START'}</a>
 			</div>
 		</div>
-		<div className="course-tile">
-			<div className="container">
-				<p className="title">Introduction to Python</p>
-				<hr className="divider"/>
-				<div className="status">
-					9/19 completed
-				</div>
-				<div className="continue active">
-					continue from
-				</div><a className="action" href="/course">Application of Linked List</a>
-			</div>
-		</div>
-		<div className="course-tile">
-			<div className="container">
-				<p className="title">Introduction to Python</p>
-				<hr className="divider"/>
-				<div className="status">
-					9/19 completed
-				</div>
-				<div className="continue active">
-					continue from
-				</div><a className="action" href="/course">Application of Linked List</a>
-			</div>
-		</div>
-		<div className="course-tile">
-			<div className="container">
-				<p className="title">Introduction to Python</p>
-				<hr className="divider"/>
-				<div className="status">
-					9/19 completed
-				</div>
-				<div className="continue active">
-					continue from
-				</div><a className="action" href="/course">Application of Linked List</a>
-			</div>
-		</div>
-		<div className="course-tile">
-			<div className="container">
-				<p className="title">Introduction to Python</p>
-				<hr className="divider"/>
-				<div className="status">
-					9/19 completed
-				</div>
-				<div className="continue active">
-					continue from
-				</div><a className="action" href="/course">Application of Linked List</a>
-			</div>
-		</div>
-		<div className="course-tile">
-			<div className="container">
-				<p className="title">Introduction to Python</p>
-				<hr className="divider"/>
-				<div className="status">
-					9/19 completed
-				</div>
-				<div className="continue active">
-					continue from
-				</div><a className="action" href="/course">Application of Linked List</a>
-			</div>
-		</div>
-		<div className="course-tile">
-			<div className="container">
-				<p className="title">Introduction to Python</p>
-				<hr className="divider"/>
-				<div className="status">
-					9/19 completed
-				</div>
-				<div className="continue active">
-					continue from
-				</div><a className="action" href="/course">Application of Linked List</a>
-			</div>
-		</div>
+				)
+		})}
+		
+		
 	</div>
 </section>);
 	}

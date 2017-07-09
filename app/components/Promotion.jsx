@@ -2,36 +2,43 @@ import React from 'react';
 import { Link } from 'react-router';
 import Slider from 'react-slick';
 
-var Promotion = React.createClass({
-	render: function(){
+export default class Promotion extends React.Component {
+	constructor(props) {
+		super(props);
+	}
+	render() {
 		var settings = {
 		   	infinite: true,
 			dots: true,
    			arrows: false
 		}
-	return(
+	if(this.props.slides.length > 0) {
+		return(
 		<section className="promotion">
 	    <div className="row">
 	        <div className="section-title">Promotion <span className="closeIcon"></span></div>
+
 	        <Slider {...settings} className="column large-12 ad-container">
-	            <div className="ad" style={{"backgroundImage" : "url('images/promotion.jpg')"}}>
-	                <div className="adText">
-	                    <p className="title open-condensed">New Course available</p>
-	                    <p className="text">Well, the way they make shows is, they make one show. That show's called a pilot. Then they show that show to the people who make shows, and on the strength of that one show they decide if they're going to make more shows</p>
-	                </div>
-	            </div>
-	            <div className="ad" style={{"backgroundImage" : "url('images/ad2.jpg')"}}>
-	                <div className="adText">
-	                    <p className="title open-condensed">New Course available</p>
-	                    <p className="text">Well, the way they make shows is, they make one show. That show's called a pilot. Then they show that show to the people who make shows, and on the strength of that one show they decide if they're going to make more shows</p>
-	                </div>
-	            </div>
+	        	{this.props.slides.map((slide,i) => {
+	        		return (
+						<div key={i} className="ad" style={{"backgroundImage" : `url(${slide.image})`}}>
+			                <div className="adText">
+			                    <p className="title open-condensed">{slide.title}</p>
+			                    <p className="text">{slide.text}</p>
+			                </div>
+			            </div>
+	        			)
+	        	})}
 	        </Slider>
 	    </div>
 		</section>
-	);
+		);
+	}	else 	{
+		return (<p>loading</p>);
 	}
-});
+	
+	}
+};
 
 
 module.exports = Promotion

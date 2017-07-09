@@ -2,9 +2,9 @@ import React from 'react';
 import { Link, IndexLink } from 'react-router';
 
 class Nav extends React.Component {
-  onSearch(e) {
-    e.preventDefault();
-    alert('Not yet wired up!');
+  constructor(props) {
+    super(props);
+    this.state = {};
   }
 
   render() {
@@ -38,7 +38,7 @@ class Nav extends React.Component {
           </div>
         </div>
         <div className="name">
-          John Doe <span className="options"></span>
+          {this.props.name} <span className="options"></span>
           <div className="header-dropdown">
             <span className="options"></span>
             <ul>

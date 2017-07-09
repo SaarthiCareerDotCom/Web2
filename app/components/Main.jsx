@@ -1,33 +1,44 @@
-import React from 'react';
-import Nav from 'Nav';
-import Enrolledcourses from './Enrolledcourses';
-import Promotion from './Promotion';
-import Blogs from './Blogs';
+import React from "react";
+import Nav from "Nav";
+import Enrolledcourses from "./Enrolledcourses";
+import Promotion from "./Promotion";
+import Blogs from "./Blogs";
 
-import axios from 'axios';
+import axios from "axios";
 
 class Main extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {};
-	}
+  constructor(props) {
+    super(props);
+    this.state = {
+      dataLoaded: false,
+      pageText: {
+        name: "",
+        coursesEnrolled: [],
+        promotion: [],
+        blogs: [],
+        blogLink: ""
+      },
+      notifications: {}
+    };
+  }
 
-	componentDidMount() {
-		axios.get('https://api.myjson.com/bins/szk67')
-			.then(res => {
-				console.log(res.data.someone);
-			})
-	}
-	render(){
-		return (
-			<div>
-				<Nav/>
-				<Enrolledcourses/>
-				<Promotion/>
-				<Blogs/>
-		    </div>
-	    );
-	}
+  componentDidMount() {
+    axios.get("https://api.myjson.com/bins/szk67").then(res => {
+      let newState = Object.assign({}, this.state);
+      newState.pageText = res.data;
+      this.setState(newState);
+    });
+  }
+  render() {
+    return (
+      <div>
+        <Nav name={this.state.pageText.name} />
+        <Enrolledcourses courses={this.state.pageText.coursesEnrolled} />
+        <Promotion slides={this.state.pageText.promotion}/>
+        <Blogs blogs={this.state.pageText.blogs}/>
+      </div>
+    );
+  }
 }
 
 export default Main;
