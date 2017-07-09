@@ -1,0 +1,59 @@
+@import 'reference';
+
+.open-condensed {
+    font-family: 'Open Sans Condensed', sans-serif;
+}
+
+// @font-face {
+//   font-family: 'fontAwesome';
+//   src: url('./fonts/FontAwesome.eot'); /* IE9 Compat Modes */
+//   src: url('./fonts/FontAwesome.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+//        url('./fonts/fontawesome-webfont.woff') format('woff'), /* Modern Browsers */
+//        url('./fonts/fontawesome-webfont.ttf')  format('truetype'), /* Safari, Android, iOS */
+//        url('./fonts/fontawesome-webfont.svg') format('svg'); /* Legacy iOS */
+// }
+
+.fullWidth {
+    width: 100%;
+    min-width: 100%;
+}
+
+.footer {
+    height: 200px;
+}
+
+.section-title {
+    color: $blackBlue;
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.nil-padding {
+    padding: 0 !important; 
+}
+
+body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-smoothing: antialiased;
+}
+
+.ad {
+    position: relative;
+}
+
+.adText {
+    background: black;
+    width: 30%;
+    position: absolute;
+    height: 100%;
+    right: 15%;
+    padding: 20px;
+    color: #FFF;
+    .title {
+        font-size: 24px;
+    }
+    .text {
+        font-size: 14px;
+    }
+}

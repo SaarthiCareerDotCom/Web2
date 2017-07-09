@@ -1,4 +1,6 @@
 var webpack = require('webpack');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var path = require('path');
 
 module.exports = {
   entry: [
@@ -39,6 +41,19 @@ module.exports = {
         },
         test: /\.jsx?$/,
         exclude: /(node_modules|bower_components)/
+      },{
+        test: /\.scss$/,
+        loaders : ['style', 'css?sourceMap', 'sass?sourceMap'],
+        options: {
+          includePaths: [ 
+            path.resolve(__dirname, "node_modules/foundation-sites/scss"), 
+            path.resolve(__dirname, "node_modules/motion-ui/src")
+          ]
+        }
+      },
+      {
+        test: /\.(eot|svg|ttf|woff|woff2)$/,
+        loader: 'url-loader?limit=100000'
       }
     ]
   },

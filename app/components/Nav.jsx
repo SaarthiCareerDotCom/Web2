@@ -1,34 +1,61 @@
-var React = require('react');
-var { Link, IndexLink } = require('react-router');
+import React from 'react';
+import { Link, IndexLink } from 'react-router';
 
-
-var Nav = React.createClass({
-  onSearch: function (e) {
+class Nav extends React.Component {
+  onSearch(e) {
     e.preventDefault();
     alert('Not yet wired up!');
-  },
-  render: function () {
+  }
+
+  render() {
     return (
-      <div className="top-bar">
-        <div className="top-bar-left">
-          <ul className="menu">
-            <li className="menu-text">Saarthi Career</li>
-          </ul>
-        </div>
-        <div className="top-bar-right">
-          <form onSubmit={this.onSearch}>
-            <ul className="menu">
-              <li>
-                <Link to="/login">
-                  <input type="submit" className="button" value="LogIn" />
-                </Link>
-              </li>
+        <div className="header fullWidth">
+    <div className="row">
+      <div className="columns large-2 logo">
+        Saarthi
+      </div>
+      <div className="columns large-4 header-menu">
+        <div className="notification">
+          <div className="notify">
+            <ul>
+              <li className="schedule">Your class has been rescheduled</li>
+              <li className="course">A new test is available</li>
+              <li className="schedule">Your class has been rescheduled</li>
+              <li className="qa">You have got a new reply</li>
+              <li className="schedule">Your class has been rescheduled</li>
+              <li className="course">A new test is available</li>
+              <li className="schedule">Your class has been rescheduled</li>
+              <li className="qa">You have got a new reply</li>
+              <li className="schedule">Your class has been rescheduled</li>
+              <li className="course">A new test is available</li>
+              <li className="schedule">Your class has been rescheduled</li>
+              <li className="qa">You have got a new reply</li>
+              <li className="schedule">Your class has been rescheduled</li>
+              <li className="course">A new test is available</li>
+              <li className="schedule">Your class has been rescheduled</li>
+              <li className="qa">You have got a new reply</li>
             </ul>
-          </form>
+          </div>
+        </div>
+        <div className="name">
+          John Doe <span className="options"></span>
+          <div className="header-dropdown">
+            <span className="options"></span>
+            <ul>
+              <li><span className="options"><a href="#">Profile</a></span></li>
+              <li><span className="options"></span></li>
+              <li><span className="options"><a href="#">Settings</a></span></li>
+              <li><span className="options"></span></li>
+              <li><span className="options"><a href="#">Logout</a></span></li>
+              <li><span className="options"></span></li>
+            </ul>
+          </div>
         </div>
       </div>
+    </div>
+  </div>
     );
   }
-});
+};
 
-module.exports = Nav;
+export default Nav;

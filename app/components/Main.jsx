@@ -1,17 +1,33 @@
-var React = require('react');
-var Nav = require('Nav');
+import React from 'react';
+import Nav from 'Nav';
+import Enrolledcourses from './Enrolledcourses';
+import Promotion from './Promotion';
+import Blogs from './Blogs';
 
-var Main = (props) => {
-  return (
-    <div>
-      <Nav/>
-      <div className="row">
-        <div className="columns large-8 small-4 small-centered">
-          {props.children}
-        </div>
-      </div>
-    </div>
-  );
+import axios from 'axios';
+
+class Main extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {};
+	}
+
+	componentDidMount() {
+		axios.get('https://api.myjson.com/bins/szk67')
+			.then(res => {
+				console.log(res.data.someone);
+			})
+	}
+	render(){
+		return (
+			<div>
+				<Nav/>
+				<Enrolledcourses/>
+				<Promotion/>
+				<Blogs/>
+		    </div>
+	    );
+	}
 }
 
-module.exports = Main;
+export default Main;

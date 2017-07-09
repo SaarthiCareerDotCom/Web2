@@ -1,0 +1,86 @@
+section.courses {
+    background-color: $lightestGrey;
+}
+
+.courses {
+    .tab {
+        padding: 25px 15px 13px 0;
+        width: auto;
+        display: inline-block;
+        span {
+            padding: 0 0 10px;
+            border-width: 0 0 3px;
+            border-style: solid;
+            border-color: rgba(0,0,0,0);
+            color: $textDeactiveGrey;
+            font-weight: bold;
+        }
+    }
+    .tab.active {
+            span {
+                border-color: $lightBlue;
+                color: $blackBlue;
+            }
+    }
+    &>.row {
+        padding-left: 15px;
+        padding-right: 15px; 
+    }
+}
+
+.course-list {
+    margin-top: 25px;
+    padding-bottom: 35px;
+}
+
+.course-tile .container {
+    max-width: 270px;
+    background: #FFF;
+    box-shadow: 3px 3px 17px rgba(0,0,0,0.2);
+    .title {
+        font-size: 16px;
+        padding: 20px 70px 0;
+        margin: 0;
+    }
+    hr {
+        width: 20%;
+        border-width: 2px;
+        border-style: solid;
+        margin: 20px auto;
+        border-color: $lightBlue;
+    }
+    .status {
+        color: $lightText1;
+        font-size: 12px;
+        font-weight: 600;
+        padding: 10px 0 20px;    
+    }
+    .action {
+        width: 100%;
+        padding: 8px 0;
+        background-color: $lightBlue;
+        color: #FFF;
+        font-size: 12px;
+        font-weight: 600;
+        display: inline-block;
+        text-decoration: none;
+        cursor: pointer;
+        &:hover {
+            background-color: $darkerBlue;
+        }
+    }
+    .continue {
+        font-size: 10px;
+        padding: 5px 0;
+    }
+    .continue:not(.active) {
+        color: rgba(0,0,0,0);
+    }
+}
+
+.course-tile {
+    display: inline-block;
+    text-align: center;
+    width: 250px;
+    margin: 20px 20px 0 0;
+}
