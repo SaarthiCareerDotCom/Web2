@@ -23,7 +23,7 @@ class Main extends React.Component {
   }
 
   componentDidMount() {
-    axios.get("https://api.myjson.com/bins/szk67").then(res => {
+    axios.get("https://api.myjson.com/bins/66x1f").then(res => {
       let newState = Object.assign({}, this.state);
       newState.pageText = res.data;
       this.setState(newState);
@@ -35,7 +35,7 @@ class Main extends React.Component {
         <Nav name={this.state.pageText.name} />
         <Enrolledcourses courses={this.state.pageText.coursesEnrolled} />
         <Promotion slides={this.state.pageText.promotion}/>
-        <Blogs blogs={this.state.pageText.blogs}/>
+        <Blogs blogs={this.state.pageText.blogs} blogLink={this.state.pageText.blogLink}/>
       </div>
     );
   }

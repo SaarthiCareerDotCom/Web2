@@ -97,7 +97,7 @@
     position: absolute;
     line-height: 1.2;
     top: 50px;
-    right: 0;
+    right: -20px;
     width: 300px;
     max-height: calc(80vh - 50px);
     display: none;
@@ -123,6 +123,14 @@
             &:hover {
                 color: $inkBlue;
                 &:before {
+                    color: $inkBlue;
+                }
+            }
+            a {
+                text-decoration: none;
+                color: #333;
+                &:hover {
+                    text-decoration: underline;
                     color: $inkBlue;
                 }
             }
