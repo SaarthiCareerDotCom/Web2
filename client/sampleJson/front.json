@@ -1,0 +1,57 @@
+{
+	"name": "John Doe",
+	"coursesEnrolled": [{
+			"title": "Introduction to Python",
+			"code": "Py101",
+			"completed": null,
+			"next": null
+		},
+		{
+			"title": "Data Structures and Algorithm",
+			"code": "DS112",
+			"completed": [9, 19],
+			"next": {
+				"topic": "Application of Linked List",
+				"code": "DS112-009"
+			}
+		},
+		{
+			"title": "Advanced Embedded",
+			"code": "EC552",
+			"completed": [2, 32],
+			"next": {
+				"topic": "Installing Softwares",
+				"code": "EC552-002"
+			}
+		}
+	],
+	"promotion": [{
+		"image": "images/promotion.jpg",
+		"title": "New course available",
+		"text": "Well, the way they make shows is, they make one show. That show's called a pilot. Then they show that show to the people who make shows, and on the strength of that one show they decide if they're going to make more shows"
+	}, {
+		"image": "images/ad2.jpg",
+		"title": "course available",
+		"text": "Well, the way they make shows is, they make one show. That show's called a pilot. Then they show that show to the people who make shows, and on the strength of that one show they decide if they're going to make more shows"
+	} ],
+	"blogs": [{
+		"image": "images/globe.jpg",
+		"tags": ["CAREER"],
+		"title": "More jobs ahead",
+		"link": "/blog/renewable",
+		"author" : "Aquib Khan"
+	}, {
+		"image": "images/globe.jpg",
+		"tags": ["CAREER"],
+		"title": "Save time",
+		"link": "/blog/renewable",
+		"author" : "Tupperware"
+	}, {
+		"image": "images/globe.jpg",
+		"tags": ["CAREER"],
+		"title": "Read more",
+		"link": "/blog/renewable",
+		"author" : "Someone"
+	}],
+	"blogLink": "/blog/all"
+}

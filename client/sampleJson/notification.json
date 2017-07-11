@@ -1,0 +1,49 @@
+{
+	"notifications" : [
+		{
+			"text" : "Class has been rescheduled",
+			"type" : "schedule",
+			"link" : "/course/abc"
+		},
+		{
+			"text" : "Exam result available",
+			"type" : "qa",
+			"link" : "/course/abc"
+		},
+		{
+			"text" : "A new course is available",
+			"type" : "course",
+			"link" : "/course/abc"
+		},
+		{
+			"text" : "Class has been rescheduled",
+			"type" : "schedule",
+			"link" : "/course/abc"
+		},
+		{
+			"text" : "Exam result available",
+			"type" : "qa",
+			"link" : "/course/abc"
+		},
+		{
+			"text" : "A new course is available",
+			"type" : "course",
+			"link" : "/course/abc"
+		},
+				{
+			"text" : "Class has been rescheduled",
+			"type" : "schedule",
+			"link" : "/course/abc"
+		},
+		{
+			"text" : "Exam result available",
+			"type" : "qa",
+			"link" : "/course/abc"
+		},
+		{
+			"text" : "A new course is available",
+			"type" : "course",
+			"link" : "/course/abc"
+		}
+	]
+}

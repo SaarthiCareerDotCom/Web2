@@ -1,22 +1,27 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Route, Router, IndexRoute, hashHistory} from 'react-router';
+import {Route, HashRouter, Switch} from 'react-router-dom';
 
 import Main from 'Main';
 import ForgotPassword from './components/ForgotPassword.jsx';
-import LoginForm from 'LoginForm';
+import Loginformm from './components/Loginformm';
 import RegistrationForm from 'RegistrationForm';
+import Home from './components/Home.jsx';
 // Load foundation
 require('./styles/app.scss');
 $(document).foundation();
 
 ReactDOM.render(
-  <Router history={hashHistory}>
-    <Route path="/" component={Main}>
-      <Route path="login" component={LoginForm}/>
-      <Route path="registration" component={RegistrationForm}/>
-    </Route>
-    <Route path="forgotpassword" component={ForgotPassword}/>
-  </Router>,
+  <HashRouter>
+  	<div>
+  	<Switch>
+    	<Route exact path="/" component={Main}></Route>
+    	<Route exact path="/login" component={Loginformm}/>
+    	<Route exact path="/registration" component={RegistrationForm}/>
+    	<Route exact path="/home" component={Home}/>
+    	<Route exact path="/forgotpassword" component={ForgotPassword}/>
+	</Switch>
+	</div>
+  </HashRouter>,
   document.getElementById('app')
 );

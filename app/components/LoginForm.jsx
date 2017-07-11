@@ -1,28 +1,25 @@
 import React from 'react';
 import firebase from '../../common/firebase-config.js';
 import Input from './common/InputField';
-import { Link } from 'react-router';
+import Link from 'react-router';
 import UserDashboard from '../components/UserDashboard';
 
 var googleProvider = new firebase.auth.GoogleAuthProvider();
 var facebookProvider = new firebase.auth.FacebookAuthProvider();
 
 
-var LogInForm = React.createClass({
+export default class Loginform extends React.Component {
 
-  getInitialState: function () {
-    return {
+  constructor(props) {
+    super(props);
+    this.state = {
       loginError: "",
       steps: 1
     }
-  },
+  }
 
-  setInitialState: function () {
-    this.setState({
-      loginError: ""
-    });
-  },
-  loginViaEmail: function (email, password) {
+
+  loginViaEmail(email, password) {
     var _this = this;
     firebase.auth().signInWithEmailAndPassword(email, password).then((firebaseUser) => {
       this.setState({
@@ -34,9 +31,9 @@ var LogInForm = React.createClass({
         loginError: error.message
       })
     });
-  },
+  }
 
-  loginViaSocialMedia: function (Provider) {
+  loginViaSocialMedia(Provider) {
     var _this = this;
     firebase.auth().signInWithPopup(Provider).then(function (result) {
       var token = result.credential.accessToken;
@@ -46,34 +43,35 @@ var LogInForm = React.createClass({
         loginError: error.message
       });
     });
-  },
+  }
 
   //Google
-  googleSignIn: function () {
-    this.loginViaSocialMedia(googleProvider);
-  },
+  googleSignIn() {
+    loginViaSocialMedia(googleProvider);
+  }
 
   //Facebook
-  facebookSignIn: function () {
-    this.loginViaSocialMedia(facebookProvider);
-  },
+  facebookSignIn() {
+    loginViaSocialMedia(facebookProvider);
+  }
 
   //LinkedIn
-  linkedInSignIn: function () {
+  linkedInSignIn() {
     // var Linkedin = require('node-linkedin')('app-id', 'secret', 'callback');
-  },
+  }
 
 
-  onFormSubmit: function () {
+  onFormSubmit() {
     var email = this.refs.email.getValue();
     var password = this.refs.password.getValue();
     this.setInitialState();
     this.loginViaEmail(email, password);
-  },
+  }
 
-  render: function () {
+  render() {
     if (this.state.steps == 1) {
       return (
+
         <div className="login-box">
           <form>
             <div className="row collapse expanded">
@@ -111,6 +109,4 @@ var LogInForm = React.createClass({
       return <UserDashboard />
     }
   }
-});
-
-module.exports = LogInForm;
+};

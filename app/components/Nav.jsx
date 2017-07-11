@@ -1,5 +1,6 @@
 import React from 'react';
-import { Link, IndexLink } from 'react-router';
+import firebase from '../../common/firebase-config.js';
+import { Link, IndexLink, Redirect } from 'react-router-dom';
 import axios from "axios";
 
 class Nav extends React.Component {
@@ -8,7 +9,8 @@ class Nav extends React.Component {
     this.state = {
       notifications : [],
       notificationShow : false,
-      settingShow : false
+      settingShow : false,
+      logout: false
     };
     this.toggleShow = (modal) => {
       let newState = Object.assign({},this.state);
@@ -21,6 +23,18 @@ class Nav extends React.Component {
     this.toggleSettings = () => {
       this.toggleShow("settingShow");
     }
+    this.signOut = () => {
+      debugger;
+      var that = this;
+      firebase.auth().signOut().then(function() {
+        console.log('sign out');
+        let newState = Object.assign({}, that.state);
+        newState.logout = true;
+        that.setState(newState);
+      }).catch(function(error) {
+        console.log('error');
+});
+    }
   }
 
   componentDidMount() {
@@ -32,8 +46,12 @@ class Nav extends React.Component {
   }
 
   render() {
-    return (
-        <div className="header fullWidth">
+    return this.state.logout ? (
+      <Redirect to={{
+        pathname: '/login',
+      }}/>
+    ) : (
+      <div className="header fullWidth">
     <div className="row">
       <div className="columns large-2 logo">
         Saarthi
@@ -51,18 +69,15 @@ class Nav extends React.Component {
           </div>
         </div>
         <div className="name" onClick={this.toggleSettings}>
-          {this.props.name} <span className="options" className="options"></span>
+          {this.props.name} <span className={`options ${this.state.settingShow ? 'open' : ''}`}>
           <div className="header-dropdown">
-            <span className={`options ${this.state.notificationShow ? 'open' : ''}`}></span>
             <ul>
               <li><span className="options"><a href="#">Profile</a></span></li>
-              <li><span className="options"></span></li>
               <li><span className="options"><a href="#">Settings</a></span></li>
-              <li><span className="options"></span></li>
-              <li><span className="options"><a href="#">Logout</a></span></li>
-              <li><span className="options"></span></li>
+              <li><span className="options" onClick={this.signOut}><a>Sign Out</a></span></li>
             </ul>
           </div>
+          </span>
         </div>
       </div>
     </div>

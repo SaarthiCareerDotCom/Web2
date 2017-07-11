@@ -57,3 +57,44 @@ body {
         font-size: 14px;
     }
 }
+
+.login-container {
+    width: 100vw;
+    height: 100vh;
+    background: url("/images/login3.jpg");
+    position: absolute;
+    background-size: cover;
+    .message {
+        position: absolute;
+        margin-left: 80px;
+        color: #FFF;
+        top: 20%;
+        font-weight: bold;
+        font-size: 32px;
+    }
+    .box {
+        width: 400px;
+        position: absolute;
+        right: 80px;
+        top: 20%;
+        background: white;
+        text-align: center;
+        .oauth {
+            width: 70%;
+            border: 1px solid black;
+            display: block;
+            margin: 0 auto;
+        }
+        .facebookSignIn:before, .googleSignIn:before {
+            font-family: 'FontAwesome';
+            font-size: 18px;
+            padding: 5px;
+        }
+        .googleSignIn:before {
+            content: '\f1a0';
+        }
+        .facebookSignIn:before {
+            content: '\f230';
+        } 
+    }
+}

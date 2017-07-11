@@ -20,7 +20,7 @@
     "openurl": "^1.1.1",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
-    "react-router": "^2.0.0",
+    "react-router": "^4.0.0",
     "request": "^2.81.0"
   },
   "devDependencies": {
@@ -43,6 +43,7 @@
     "gulp-typescript": "^3.1.7",
     "jquery": "^2.2.1",
     "node-sass": "^4.5.3",
+    "react-router-dom": "^4.1.1",
     "react-slick": "^0.14.11",
     "sass-loader": "^6.0.6",
     "script-loader": "^0.6.1",
