@@ -32,19 +32,16 @@ export default class Loginformm extends React.Component {
       });
     });
   }
-  
-  this.loginViaSocialMedia = (Provider) => {
-    debugger;
+
+    this.loginViaEmail = (email, password) => {
     var _this = this;
-    firebase.auth().signInWithPopup(Provider).then(function (result) {
-      var token = result.credential.accessToken;
-      var current_user = result.user;
+    firebase.auth().signInWithEmailAndPassword(email, password).then((firebaseUser) => {
+      
     }).catch(function (error) {
-      _this.setState({
-        loginError: error.message
-      });
+      console.log(error);
+     
     });
-  }
+  },
 
     //Google
   this.googleSignIn = () => {
@@ -65,7 +62,6 @@ export default class Loginformm extends React.Component {
   this.onFormSubmit = () => {
     var email = this.refs.email.getValue();
     var password = this.refs.password.getValue();
-    this.setInitialState();
     this.loginViaEmail(email, password);
   }
 
@@ -86,6 +82,8 @@ export default class Loginformm extends React.Component {
     
 }
 
+
+
 componentDidMount() {
   this.alertAuthChange.bind(this)();
 }
@@ -104,8 +102,17 @@ componentDidMount() {
           <div className="box">
             <div className="login">
               <p className="title">Login</p>
-              <button className="oauth googleSignIn" onClick={this.googleSignIn}>Google</button>
+              <div className="inputs">
+              <label htmlFor="">Email</label>
+              <Input className="login-box-input" type="email" name="email" placeholder="E-mail"
+                    errorMessage="Email format is incorrect" validate={this.validateEmail} ref="email" />
+                  <label htmlFor="">Password</label>
+                  <Input className="login-box-input" type="password" name="password" placeholder="Password"
+                    errorMessage="Password should have minimum 6 characters" validate={this.validatePassword} ref="password" />
+                    </div>
+                    <button className="oauth googleSignIn" onClick={this.googleSignIn}>Google</button>
               <button className="oauth facebookSignIn" onClick={this.facebookSignIn}>Facebook</button>
+                  <input className="login-box-submit-button" type="button" onClick={this.onFormSubmit} value="Login" />
             </div>
           </div>
         </div>

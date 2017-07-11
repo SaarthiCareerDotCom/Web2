@@ -63,6 +63,7 @@
   box-shadow: none;
   border-bottom: 1px solid #1779ba;
   font-weight: 400;
+  width: 70%;
 }
 
 .login-box-input:focus {
