@@ -47,7 +47,7 @@ var Input = React.createClass({
         return (
             <div>
                 <input className={this.props.className} type={this.props.type} name={this.props.name} placeholder={this.props.placeholder} onBlur={this.handleFocusChange} ref="input" />
-                {this.state.errorVisible && <div>{this.props.errorMessage}</div>}
+                {this.state.errorVisible && <div className="errorMessage">{this.props.errorMessage}</div>}
             </div>
         );
     }

@@ -131,4 +131,27 @@ body {
             content: '\f230';
         } 
     }
+    .box.login {
+        .for-register {
+            display: none;
+        }
+    }
+    .box.register {
+        .for-login {
+            display: none;
+        }
+    }
+    .changeMode {
+        font-size: 12px;
+        cursor: pointer;
+        color: #888;
+        &:hover {
+            color: #333;
+        }
+    }
+    .errorMessage {
+        font-size: 12px;
+        padding: 0 0 5px;
+        color: red;
+    }
 }

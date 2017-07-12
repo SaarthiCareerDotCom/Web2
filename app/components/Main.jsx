@@ -1,6 +1,6 @@
 import React from "react";
 import Nav from "Nav";
-import {Link} from "react-router-dom"
+import { Link } from "react-router-dom"
 
 class Main extends React.Component {
   constructor(props) {
@@ -10,13 +10,13 @@ class Main extends React.Component {
   render() {
     return (
       <div>
-      <Nav />
+        <Nav />
 
-      
-      <Link to='/login'>The login Button</Link>
 
-      <p>This page will have publically accessbile data</p>
-        
+        <Link to='/login'>The login Button</Link>
+
+        <p>This page will have publically accessbile data</p>
+
       </div>
     );
   }
