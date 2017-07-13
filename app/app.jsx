@@ -7,6 +7,7 @@ import ForgotPassword from './components/ForgotPassword.jsx';
 import Loginformm from './components/Loginformm';
 import RegistrationForm from 'RegistrationForm';
 import Home from './components/Home.jsx';
+import Coursepage from './components/Coursepage'
 // Load foundation
 require('./styles/app.scss');
 $(document).foundation();
@@ -19,6 +20,7 @@ ReactDOM.render(
     	<Route exact path="/login" component={Loginformm}/>
     	<Route exact path="/registration" component={RegistrationForm}/>
     	<Route exact path="/home" component={Home}/>
+			<Route exact path="/course/:name" component={Coursepage}/>
     	<Route exact path="/forgotpassword" component={ForgotPassword}/>
 	</Switch>
 	</div>

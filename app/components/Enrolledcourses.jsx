@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import Equalizeheight from './common/Equalizeheight';
 
 export default class Enrolledcourses extends React.Component{
@@ -55,7 +55,7 @@ export default class Enrolledcourses extends React.Component{
 			return (
 				<div className="course-tile" key={i}>
 			<div className="container">
-				<p className="title" style={{"height": `${that.state.heightEl}`}}>{course.title}</p>
+				<Link to={`/course/${course.code}`} className="title" style={{"height": `${that.state.heightEl}`}}>{course.title}</Link>
 				<hr className="divider"/>
 				<div className="status">
 					{course.completed ? course.completed[0] + '/' + course.completed[1] : 'New Course'}
