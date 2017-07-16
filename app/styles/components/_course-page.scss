@@ -93,13 +93,14 @@
 }
 
 .pipe li:first-child:before {
-    height: 50%;
+    height: calc(100% - 30px);
     bottom: -1px;
     top: initial;
 }
 
 .pipe li:last-child:before {
-    height: 50%;
+    height: 30px;
+    top: 0;
 }
 
 .pipe li.finished:before {

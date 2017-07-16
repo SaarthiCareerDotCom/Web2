@@ -3,176 +3,14 @@ import {Link} from 'react-router-dom';
 
 import axios from 'axios';
 
-class Svg extends React.Component {
-	constructor(props) {
-		super(props);
-		var that = this;
-		this.getCoordinatesForPercent = (percent) => {
-		  const x = Math.cos(2 * Math.PI * percent);
-		  const y = Math.sin(2 * Math.PI * percent);
-		  return [x, y];
-		}
-		const perc = this.props.perc || 0.3;
-
-		this.slices = [{"percent":perc,"color":"#3fa9f5"},{"percent":1-perc,"color":"#f8e709"}];
-		this.cumulativePercent = 0;
-		this.paths = []
-		
-		this.slices.map((slice, i) => {
-			  // destructuring assignment sets the two variables at once
-			  const [startX, startY] = that.getCoordinatesForPercent(that.cumulativePercent);
-			  
-			  // each slice starts where the last slice ended, so keep a cumulative percent
-			  that.cumulativePercent += slice.percent;
-			  
-			  const [endX, endY] = that.getCoordinatesForPercent(that.cumulativePercent);
-
-			  // if the slice is more than 50%, take the large arc (the long way around)
-			  const largeArcFlag = slice.percent > .5 ? 1 : 0;
-
-				// create an array and join it just for code readability
-			  const pathData = [
-			    `M ${startX} ${startY}`, // Move
-			    `A 1 1 0 ${largeArcFlag} 1 ${endX} ${endY}`, // Arc
-			    `L 0 0`, // Line
-			  ].join(' ');
-
-			  // create a <path> and append it to the <svg> element
-			  // const pathEl = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-			  // pathEl.setAttribute('d', pathData);
-			  // pathEl.setAttribute('fill', slice.color);
-			  that.paths.push({
-			  	d: pathData,
-			  	fill: slice.color
-			  });
-			});
-		}
-
-	render() {
-		return (
-			<svg className="pie" viewBox="-1 -1 2 2" style={{"transform": "rotate(-90deg)"}}>
-				{this.paths.map((path, i) => {
-					return <path key={i} d={path.d} fill={path.fill}></path>
-				})}
-			</svg>
-		)
-	}
-	
-}
-
-class Topiclink extends React.Component {
-	constructor(props){
-		super(props);
-		this.isRead = (props) => {
-			let result = true;
-			if(typeof this.props.subTopics !== 'undefined') {
-				this.props.subTopics.map((subtopic, i) => {
-					result = result && subtopic.read;
-				});
-			}	else {
-				result = this.props.read;
-			}
-			return result?'finished':'';
-
-		}
-	}
-
-	render(){
-		return (
-			<li className={this.isRead(this.props)}>
-				<a className={`typeIcon ${this.props.type}`} href={`/topic/${this.props.id}`}>{this.props.topicName}</a>
-				{ this.props.subTopics && 
-					<ul className="pipe">
-					{this.props.subTopics.map((subtopic, i) => {
-						return (
-								
-									<Topiclink {...subtopic} />
-								
-							)
-					})}
-					</ul>
-				 }
-			</li>
-		)
-	}
-	
-}
+import Svg from './common/Svg.jsx'
+import Topiclink from './common/Topiclink.jsx'
 
 export default class Coursepage extends React.Component{
     constructor(props) {
         super(props)
         this.state = {
-			"course" : {
-				"code" : "Py101",
-				"name" : "data sturctures and algorithms",
-				"authors" : [
-					{
-						"name" : "Tom Braun",
-						"link" : "/profile/tom"
-					},{
-						"name" : "Delphine",
-						"link" : "/profile/delphine"
-					},{
-						"name" : "Rotwan",
-						"link" : "/profile/rtw"
-					}
-				],
-				"duration" : 52,
-				"description" : "Data structures can implement one or more particular abstract data types (ADT), which specify the operations that can be performed on a data structure and the computational complexity of those operations. In comparison, a data structure is a concrete implementation of the specification provided by an ADT.",
-				"share" : {
-					"google" : "google/share",
-					"facebook" : "facebook/share",
-					"linkedin" : "linkedin/share"
-				},
-				"content" : [{
-					"chapterName" : "Introduction",
-					"content" : [
-						{
-							"topicName" : "What is DS",
-							"type" : "video",
-							"id" : "ds101",
-							"read" : true
-						},{
-							"topicName" : "What to expect",
-							"type" : "text",
-							"id" : "ds102",
-							"read" : false
-						}
-					] 
-				}, {
-					"chapterName" : "Popular Data Structure in use",
-					"content" : [
-						{
-							"topicName" : "Trees",
-							"type": "group",
-							"subTopics" : [
-								{
-									"topicName" : "What is DS",
-									"type" : "video",
-									"id" : "ds103",
-									"read" : true
-								},{
-									"topicName" : "What to expect",
-									"type" : "text",
-									"id" : "ds104",
-									"read" : false
-								},{
-									"topicName" : "What to expect",
-									"type" : "text",
-									"id" : "ds105",
-									"read" : true
-								},{
-									"topicName" : "What to expect",
-									"type" : "text",
-									"id" : "ds106",
-									"read" : false
-								}
-							]
-						}
-					]
-				}]
-			},
-			"chapterSelected" : 0
+			"data" : false
 		}
 		this.selectChapter = (num) => {
 			let newState = Object.assign({}, this.state);
@@ -181,8 +19,17 @@ export default class Coursepage extends React.Component{
 		}
     }
 
+		componentDidMount() {
+			axios.get("https://api.myjson.com/bins/r7xib").then(res => {
+				let newState = Object.assign({}, res.data);
+				newState.data = true;
+				this.setState(newState);
+			});
+		}
+
     render(match) {
     	var course = this.state.course
+		if(this.state.data) {
         return (
             <div>
                 <div className="course-intro row">
@@ -204,7 +51,7 @@ export default class Coursepage extends React.Component{
 		{course.description}
 	</div>
 	<div className="share-buttons">
-		<a href={course.share.google}><img alt="" src="/assets/img/icons/facebook.png"/></a> <a href={course.share.facebook}><img alt="" src="/assets/img/icons/linkedin.png"/></a> <a href={course.share.facebook}><img alt="" src="/assets/img/icons/twitter.png"/></a>
+		<a href={course.share.google}><img alt="" src="/images/icons/facebook.png"/></a> <a href={course.share.facebook}><img alt="" src="/images/icons/linkedin.png"/></a> <a href={course.share.facebook}><img alt="" src="/images/icons/twitter.png"/></a>
 	</div>
 </div>
 <div className="course-description">
@@ -240,5 +87,10 @@ export default class Coursepage extends React.Component{
 </div>
             </div>
         )
+		}	else {
+			return (
+				<p> Loading... </p>
+			)
+		}
     }
 }

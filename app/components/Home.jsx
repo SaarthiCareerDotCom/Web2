@@ -4,6 +4,7 @@ import Enrolledcourses from "./Enrolledcourses";
 import Promotion from "./Promotion";
 import Blogs from "./Blogs";
 import Coursepage from "./Coursepage";
+import Topicpage from "./Topicpage";
 import {Route, Switch} from 'react-router-dom';
 
 import axios from "axios";
@@ -56,6 +57,9 @@ class Home extends React.Component {
         )}/>
         <Route path="/course/:name" render={(props) => (
           <Coursepage {...props}/>
+        )}/>
+        <Route path="/topic/:name" render={(props) => (
+          <Topicpage {...props}/>
         )}/>
         
       </div>
